@@ -1,0 +1,31 @@
+.SideNav{
+    height: 100vh;
+    width: 65px;
+    border-right: 2px solid #edeff2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    position: fixed;
+    top:0;
+
+}
+.img{
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    margin-top: 24px;
+    background-color: #c3cad9;
+    cursor: pointer;
+}
+
+.icons{
+    width: 25px;
+    height: 25px;
+    display: flex;
+    color: #c3cad9;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+}
+

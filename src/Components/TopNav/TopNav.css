@@ -1,0 +1,38 @@
+ .light-theme {
+    background-color: white;
+    color: black;
+    transition: .5s;
+}
+
+.dark-theme {
+    background-color: #222;
+    color: white;
+    transition: .5s;
+}
+
+ .TopNav, .TopNavLogin {
+    background-color: inherit;
+}
+
+
+.dashName {
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: inherit;   
+}
+
+.toggle {
+    height: 3rem;
+    cursor: pointer;
+}
+
+.btnToggle {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.button {
+    /* Add any specific styles needed for buttons */
+}

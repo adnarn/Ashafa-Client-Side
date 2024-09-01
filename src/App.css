@@ -1,0 +1,63 @@
+/* Light Theme */
+.light-app {
+    background-color: #fff;
+    color: #000;
+}
+
+.light-theme {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Dark Theme */
+.dark-app {
+    background-color: #222;
+    color: #fff;
+}
+
+.dark-theme {
+    background-color: #222;
+    color: #fff;
+}
+
+/* Ensure global styles do not override these theme-specific styles */
+body.light-theme, body.light-app {
+    background-color: #fff;
+    color: #000;
+}
+
+body.dark-theme, body.dark-app {
+    background-color: #222;
+    color: #fff;
+}
+
+/*   
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  .btn:active{
+    background-color: #3c94f1;
+  }
+  
+   */
+
+/* .container{
+    color: #222;
+} */
+
+.light-theme {
+    background-color: white;
+    color: black;
+    transition: .5s;
+}
+
+.dark-theme {
+    background-color: #222;
+    color: white;
+    transition: .5s;
+}
+.table{
+    transition: .5s !important;
+
+
+}

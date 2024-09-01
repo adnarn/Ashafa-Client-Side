@@ -1,0 +1,60 @@
+.TopNav {
+    margin-left: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    border-bottom: 2px solid #edeff2;
+    padding: 0 1rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: .5s;
+}
+
+.TopNavLogin {
+    margin-left: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    border-bottom: 2px solid #edeff2;
+    padding: 0 1rem;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.dashName {
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.toggle {
+    height: 3rem;
+    cursor: pointer;
+}
+
+.button {
+    /* margin-left: 53rem; */
+}
+
+.btnToggle {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+/* Light Theme Variables */
+.light-theme {
+    --background-color: white;
+    --text-color: black;
+       transition: .5;
+    }
+    
+    /* Dark Theme Variables */
+    .dark-theme {
+        --background-color: #222;
+        --text-color: white;
+        transition: .5;
+}
