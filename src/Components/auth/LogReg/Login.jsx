@@ -84,7 +84,7 @@ const Login = () => {
     <h2>Login</h2>
 
     {error && <Alert variant="danger">{error}</Alert>}
-    {loading && <Spinner animation="border" role="status"><span className="sr-only">Loading...</span></Spinner>}
+    {loading && <Spinner animation="border" role="status"><span className="sr-only"></span></Spinner>}
 
     <Form.Group controlId="formBasicEmail">
       <Form.Label>Email address</Form.Label>
