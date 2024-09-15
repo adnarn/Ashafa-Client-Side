@@ -2,3 +2,57 @@ body{
     background: inherit;
     background-color: black;
 }
+
+/* For small screens (e.g., mobile devices) */
+@media only screen and (max-width: 600px) {
+  /* Adjust styles for small screens here */
+  .mainContent {
+    flex-direction: column;
+  }
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
+  .table-responsive {
+    overflow-x: auto;
+  }
+  table {
+    font-size: 0.8em;
+  }
+}
+
+/* For medium screens (e.g., tablets) */
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+  /* Adjust styles for medium screens here */
+  .mainContent {
+    flex-direction: row;
+  }
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .table-responsive {
+    overflow-x: auto;
+  }
+  table {
+    font-size: 1em;
+  }
+}
+
+/* For large screens (e.g., desktops) */
+@media only screen and (min-width: 901px) {
+  /* Adjust styles for large screens here */
+  .mainContent {
+    flex-direction: row;
+  }
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .table-responsive {
+    overflow-x: hidden;
+  }
+  table {
+    font-size: 1.2em;
+  }
+}
