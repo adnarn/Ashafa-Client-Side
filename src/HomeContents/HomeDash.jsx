@@ -13,7 +13,7 @@ const HomeDash = ({theme}) => {
   }, []);
 
   const fetchItems = (query = '') => {
-    axios.get(`${process.env.REACT_APP_API_URL}/search?q=${query}`)
+    axios.get(`https://records-saver.onrender.com/search?q=${query}`)
       .then(result => {
         setItems(result.data);
       })
@@ -26,7 +26,7 @@ const HomeDash = ({theme}) => {
 
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/`)
+    axios.get('https://records-saver.onrender.com')
       .then(result => {
         setItems(result.data);
       })
