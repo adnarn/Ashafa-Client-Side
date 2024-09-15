@@ -13,7 +13,7 @@ const AddItem = ({theme}) => {
 
   const Submit = (e)=>{
     e.preventDefault();
-    axios.post(`${process.env.REACT_APP_API_URL}/addItem`, {name, price})
+    axios.post('https://records-saver.onrender.com/addItem', {name, price})
     .then(result =>{
        console.log(result)
        navigate('/')
