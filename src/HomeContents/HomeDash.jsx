@@ -13,13 +13,9 @@ const HomeDash = ({ theme }) => {
   }, []);
 
   const fetchItems = (query = '') => {
-<<<<<<< HEAD
     const url = query ? `http://localhost:4000/api/search?q=${query}` : 'http://localhost:4000/api/items';
     console.log('Fetching items from URL:', url);
     axios.get(url)
-=======
-    axios.get(`https://records-saver.onrender.com/search?q=${query}`)
->>>>>>> 6bc9f88eb4c03e712036bba2232ef9f5c1fe7007
       .then(result => {
         console.log('Items fetched successfully:', result.data);
         setItems(result.data);
@@ -41,7 +37,6 @@ const HomeDash = ({ theme }) => {
     return date.toLocaleDateString();
   };
 
-<<<<<<< HEAD
   // Group items by day
   const groupByDay = (items) => {
     return items.reduce((groups, item) => {
@@ -53,17 +48,6 @@ const HomeDash = ({ theme }) => {
       return groups;
     }, {});
   };
-=======
-  useEffect(() => {
-    axios.get('https://records-saver.onrender.com')
-      .then(result => {
-        setItems(result.data);
-      })
-      .catch(err => console.log(err));
-  }, []);
-
-
->>>>>>> 6bc9f88eb4c03e712036bba2232ef9f5c1fe7007
 
   const groupedItems = groupByDay(items);
 

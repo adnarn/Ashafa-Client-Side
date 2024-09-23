@@ -35,11 +35,9 @@ const Login = () => {
     setPasswordError(false);   
 
     try {
-<<<<<<< HEAD
+
         const response = await fetch('http://localhost:4000/auth/login', {
-=======
-        const response = await fetch('https://records-saver.onrender.com/auth/login', {
->>>>>>> 6bc9f88eb4c03e712036bba2232ef9f5c1fe7007
+
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -16,7 +16,6 @@ const AddItem = ({ theme }) => {
 
   const Submit = (e) => {
     e.preventDefault();
-<<<<<<< HEAD
     axios.post("http://localhost:4000/addItem", { name, price, customer, id })
       .then(result => {
         console.log(result);
@@ -26,17 +25,6 @@ const AddItem = ({ theme }) => {
           text: "Record Updated!",
           icon: "success",
         });
-=======
-    axios.post('https://records-saver.onrender.com/addItem', {name, price})
-    .then(result =>{
-       console.log(result)
-       navigate('/')
-       swal({
-        title: "Success!",
-        text: "Item Aded!",
-        icon: "success",
-      });
->>>>>>> 6bc9f88eb4c03e712036bba2232ef9f5c1fe7007
       })
       .catch(err => {
         console.log(err);
@@ -77,22 +65,6 @@ const AddItem = ({ theme }) => {
   );
 };
 
-<<<<<<< HEAD
-export default AddItem;
-=======
-            <input
-             type="number"
-             placeholder='Input Price'
-              // className={`  ${styles.input} ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}
-              className={styles.input}
-              id='Price'  
-              onChange={(e)=>setPrice(e.target.value)}              
-              />
-            <button  className ={` ${styles.btn} ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>Add</button>
-            
-        </form>
-  )
-}
 
-export default AddItem
->>>>>>> 6bc9f88eb4c03e712036bba2232ef9f5c1fe7007
+export default AddItem;
+
