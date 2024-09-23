@@ -3,12 +3,41 @@ import styles from './UpdateItem.module.css';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
+<<<<<<< HEAD
 const UpdateItem = ({ theme }) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [customer, setCustomer] = useState('');
   const { id } = useParams();
   const navigate = useNavigate();
+=======
+const UpdateItem = ({theme}) => {
+    const [name, setName] = useState('')
+    const [price, setPrice] = useState('')
+    const {id} = useParams()
+    const navigate = useNavigate()
+    
+
+    useEffect(() => {
+        axios.get('https://records-saver.onrender.com/getItem/'+id)
+          .then(result => {
+            {console.log(result)}
+            setName(result.data.name)
+            setPrice(result.data.price)
+            })
+          .catch(err => console.log(err));
+      }, []);
+
+      const Update = (e)=>{
+        e.preventDefault();
+        axios.put('https://records-saver.onrender.com/updateItem/'+id, {name, price})
+        .then(result =>{
+           console.log(result)
+           navigate('/')
+          })
+        .catch(err => console.log(err))  
+    }
+>>>>>>> 6bc9f88eb4c03e712036bba2232ef9f5c1fe7007
 
 
 
@@ -73,4 +102,8 @@ const UpdateItem = ({ theme }) => {
   );
 };
 
+<<<<<<< HEAD
 export default UpdateItem;
+=======
+export default UpdateItem
+>>>>>>> 6bc9f88eb4c03e712036bba2232ef9f5c1fe7007

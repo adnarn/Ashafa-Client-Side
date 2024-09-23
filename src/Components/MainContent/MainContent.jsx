@@ -14,8 +14,12 @@ const MainContent = ({ theme }) => {
   }, []);
 
   const fetchItems = (query = '') => {
+<<<<<<< HEAD
     const url = query ? `http://localhost:4000/api/search?q=${query}` : 'http://localhost:4000/api/items';
     axios.get(url)
+=======
+    axios.get(`https://records-saver.onrender.com/search?q=${query}`)
+>>>>>>> 6bc9f88eb4c03e712036bba2232ef9f5c1fe7007
       .then(result => {
         const data = Array.isArray(result.data) ? result.data : []; // Ensure it's an array
         setItems(data);
@@ -36,7 +40,11 @@ const MainContent = ({ theme }) => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
+<<<<<<< HEAD
         axios.delete(`http://localhost:4000/api/items/${id}`)
+=======
+        axios.delete(`https://records-saver.onrender.com/deleteItem/${id}`)
+>>>>>>> 6bc9f88eb4c03e712036bba2232ef9f5c1fe7007
           .then(res => {
             const updatedItems = items.filter((_, i) => i !== index);
             setItems(updatedItems);

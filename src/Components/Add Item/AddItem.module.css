@@ -74,4 +74,8 @@
 /* For large screens (e.g., desktops) */
 @media only screen and (min-width: 901px) {
   /* no changes needed, as the default styles are already suitable for large screens */
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6bc9f88eb4c03e712036bba2232ef9f5c1fe7007
