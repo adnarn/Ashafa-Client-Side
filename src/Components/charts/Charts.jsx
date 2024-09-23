@@ -4,7 +4,7 @@ import './charts.css';
 import styles from './Charts.module.css';
 import { Chart as ChartJs, ArcElement, Legend, Tooltip } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import { FaRegEdit, FaReceipt, FaTrash } from 'react-icons/fa';
+import { FaRegEdit, FaReceipt, FaTrash, FaTimes } from 'react-icons/fa';
 import swal from 'sweetalert';
 
 ChartJs.register(ArcElement, Legend, Tooltip);
@@ -69,6 +69,44 @@ const Charts = ({ theme }) => {
   const today = new Date();
   const todayItems = items.filter(item => isSameDay(item.createdAt, today));
 
+  //Todo api
+
+  const [tasks, setTasks] = useState([]);
+  const [taskName, setTaskName] = useState([]);
+ 
+
+
+
+const Submit = (e)=>{
+          e.preventDefault();
+          axios.post("http://localhost:4000/task", {taskName})
+          .then(result => console.log(result))
+          .catch(err => console.log(err))
+
+          window.location.reload()
+
+}
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/tasks')
+      .then(result => {
+        setTasks(result.data);
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:4000/deleteTask/${id}`)
+      .then(res => {
+        window.location.reload()
+
+        console.log(res);
+        setTasks(users.filter(task => task._id !== id));
+        
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <div className={`charts ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
       <div className={`topContents ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
@@ -123,13 +161,29 @@ const Charts = ({ theme }) => {
 
         <div className={`toDo ${theme === 'light' ? 'light-pieChart' : 'dark-pieChart'}`}>
           <header><h4>To-Do List</h4></header>
+          <form className='form-container'  onSubmit={Submit}>
 
-                  <input type="text" placeholder='Add your task' />
+          <input type="text" placeholder='Add your task' onChange={(e)=>setTaskName(e.target.value)} />
+          <button>Add</button>
 
+          </form>
+          {
+        tasks.map((tasks, index) => (        
+          <div className="text-container">
+            <h4>{tasks.taskName}</h4>
+            <h4>{tasks.date.split('T')[0]}</h4>   
+            
+              <h4 className='icon'><FaRegEdit className="x-icon" id='edit' /></h4>
+              <h4 className='icon' onClick={() => handleDelete(tasks._id)}>
+              <FaTimes className="x-icon" />
+            </h4>            
+          </div>
+        ))
+        }
+          </div>
 
         </div>
       </div>
-    </div>
   );
 };
 

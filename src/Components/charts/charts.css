@@ -76,7 +76,7 @@
   }
   
   /* To-do list section */
-  .toDo {
+  /* .birthday-list {
     width: 50%;
     height: 300px;
     border-radius: 8px;
@@ -86,6 +86,18 @@
     font-size: 1.2rem;
     padding: 10px;
     align-items: center;
+  } */
+  .toDo {
+    margin: 30px;
+    min-height: 300px;
+    width: 50%;
+    height: auto;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px;
   }
 
   .toDo header {
@@ -98,18 +110,66 @@
     font-size: 1.5rem;
   }
 
+  .form-container{
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    outline: none;
+    margin-top: -3rem;
+  
+  }
+
   
   .toDo input {
-    width: 50%;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
     outline: none;
+    color: rgb(159, 157, 157);
     transition: border-color 0.3s ease;
     background: transparent;
   }
+  button{
+    background-color: transparent;
+    border: 1px solid rgb(159, 157, 157);
+    color: rgb(159, 157, 157);
+    padding: 10px;
+    margin-left: -10px;
+
+  }
   
+  .text-container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    min-width: 80%;
+    margin: 6px 0px;
+    background: rgba(172, 169, 169, 0.6);
+    border-radius: 5px;  
+    height: 3rem;
+  }
+  
+  .text-container h4{
+    margin: 20px 0px;
+    font-size: 1rem;
+  }
+  
+  .x-icon{
+    cursor: pointer;
+  }
+  .x-icon:active{
+    color: red;
+  }
+  #edit:active{
+    color: blueviolet;
+  }
+  
+
   .light-pieChart {
     background-color: #f9f9f9; /* Light theme background */
     color: #333;
@@ -119,7 +179,7 @@
     background-color: #333; /* Dark theme background */
     color: #f9f9f9;
   }
-  
+
   @media (max-width: 768px) {
     .toDo {
       max-width: 90%; /* Adjust width for smaller screens */
@@ -134,4 +194,5 @@
       padding: 8px;
     }
   }
+  
   
