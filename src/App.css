@@ -31,19 +31,6 @@ body.dark-theme, body.dark-app {
     color: #fff;
 }
 
-/*   
-  .btn:hover {
-    background-color: #0056b3;
-  }
-  .btn:active{
-    background-color: #3c94f1;
-  }
-  
-   */
-
-/* .container{
-    color: #222;
-} */
 
 .light-theme {
     background-color: white;
@@ -58,6 +45,11 @@ body.dark-theme, body.dark-app {
 }
 .table{
     transition: .5s !important;
+}
 
-
+.light-pieChart{
+    box-shadow: 0 2px 10px hsla(0, 0%, 0%, 0.1);
+}
+.dark-pieChart{
+    box-shadow: 0 2px 10px rgba(242, 236, 236, 0.1);
 }

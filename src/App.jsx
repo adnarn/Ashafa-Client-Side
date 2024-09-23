@@ -12,6 +12,8 @@ import Signup from './Components/auth/LogReg/Signup';
 import SideNav from './Components/SideNav';
 import TopNav from './Components/TopNav'; // Import TopNav component
 import Settings from './Components/Settings/Settings';
+import Receipt from './PDF/Reciept';
+import Charts from './Components/charts/Charts';
 
 function App() {
   return (
@@ -30,7 +32,7 @@ function AppContent() {
     navigate('/login');
   };
 
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("");
 
   const toggle_mode = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
@@ -51,9 +53,12 @@ function AppContent() {
         <Route path="/add" element={token ? <AddItem theme={theme} /> : <Login />} />
         <Route path="/update/:id" element={token ? <UpdateItem theme={theme} /> : <Login />} />
         <Route path="/profile" element={token ? <Profile theme={theme} /> : <Login />} />
+        <Route path="/charts" element={token ? <Charts theme={theme} /> : <Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/receipt/:id" element={<Receipt />} />
+
       </Routes>
     </div>
   );

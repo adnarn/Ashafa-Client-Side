@@ -1,0 +1,174 @@
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import './Receipt.css';
+import { useParams } from 'react-router-dom';
+import logo from '../assets/ashLogs.jpg';
+import ReactPrint from 'react-to-print'
+// import { Dialog, DialogTitle, DialogContent } from '@mui/material';
+// import { Close } from '@mui/icons-material'
+
+
+
+const Receipt = () => {
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [customer, setCustomer] = useState('');
+  const [approoved, setApprooved] = useState('');
+  const [message, setMessage] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [date, setDate] = useState('');
+  const { id } = useParams();
+  const [quants, setQuants] = useState('');
+  const ref = useRef();
+
+
+  useEffect(() => {
+    axios.get(`http://localhost:4000/api/items/${id}`)
+      .then(result => {
+        console.log(result);
+        if (result.data) {
+          setName(result.data.name || '');
+          setPrice(result.data.price || '');
+          setDate(result.data.date)
+          setCustomer(result.data.customer || '');
+          setQuantity(result.data.quantity || '');
+          setApprooved('APPROOVED');
+          setMessage('Transaction Approoved');
+        }
+      })
+      .catch(err => {
+        console.error('Error fetching item:', err);
+        setName('');
+        setPrice('');
+        setCustomer('');
+        setApprooved('FAILED');
+        setMessage('Transaction Failed.');
+        setQuants('');
+      });
+  }, [id]);
+
+  return (
+    <div className="receipt">
+      <div className="receipt-header">
+        <img src={logo} alt='' className="company-logo" />
+        <div className="company-name">AshafsLink Bussiness Center</div>
+        <div className="company-address">17 College Road Ungwan Dosa, Kaduna</div>
+        <div className="phone">09018181999</div>
+      </div>
+      <div className="receipt-body">
+        <table>
+          <tbody>
+            <tr>
+              <td>CLIENT NAME</td>
+              <td>{customer}</td>
+            </tr>
+            <tr>
+              <td>DATE</td>
+              <td>{new Date(date).toLocaleDateString()}</td>
+            </tr>
+            <tr>
+              <td>SERVICE NAME</td>
+              <td>{name}</td>
+            </tr>
+            <tr>
+              <td>PRICE</td>
+              <td>{price}</td>
+            </tr>
+            <tr>
+              <td>MESSAGE</td>
+              <td>{message}</td>
+            </tr>
+            <tr>
+              <td>{quants}</td>
+              <td>{quantity}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div className="total">
+          <div className="star">**********************</div>
+          <p>NGN {price}</p>
+          <div className="starr">**********************</div>
+        </div>
+        <div className='approoved'>{approoved}</div>
+      </div>
+      <div className="receipt-footer">
+        <p>Thanks for working with us</p>
+      </div>
+      <ReactPrint trigger={() => <button>Print</button>} content={() => ref.current} documentTitle={'INVOICE '} />
+    </div>
+  );
+};
+
+export default Receipt;
+
+
+import React, { useState } from 'react';
+import './AddItem.css'
+import axios from 'axios';
+import styles from './AddItem.module.css';
+import swal from 'sweetalert';
+
+import { useNavigate } from 'react-router-dom';
+import Receipt from '../../PDF/Reciept';
+
+const AddItem = ({ theme }) => {
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [customer, setCustomer] = useState('');
+
+  const navigate = useNavigate();
+
+  const Submit = (e) => {
+    e.preventDefault();
+    axios.post("http://localhost:4000/addItem", { name, price, customer })
+      .then(result => {
+        console.log(result);
+        navigate('/');
+        swal({
+          title: "Success!",
+          text: "Record Updated!",
+          icon: "success",
+        });
+        <Receipt />
+      })
+      .catch(err => {
+        console.log(err);
+        swal("Error", "Failed to update record. Please try again.", "error");
+      });
+  };
+  
+  return (
+    <form className={`${styles.form} ${theme === 'light' ? 'light-theme' : 'dark-theme'}`} onSubmit={Submit}>
+      <h3 className={`${styles.header} ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>Add Record</h3>
+      <input
+        type="text"
+        placeholder='Input Service Name'
+        className={styles.input}
+        id='Name'
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder='Input Price'
+        className={styles.input}
+        id='Price'
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder='Input Customer Name'
+        className={styles.input}
+        id='Customer'
+        value={customer}
+        onChange={(e) => setCustomer(e.target.value)}
+      />
+   
+      <button className={`${styles.btn} ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>Add</button>
+    </form>
+  );
+};
+
+export default AddItem;

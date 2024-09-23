@@ -1,15 +1,15 @@
-.profile{
-  margin-left: 70px;
-  padding: 20rem;
+.profile {
+  margin: 0 auto; /* Centering for mobile */
+  padding: 20rem 2rem; /* Adjusting padding for smaller screens */
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: auto; /* Change to auto for responsive height */
   justify-content: center;
   align-items: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: -4rem;
 }
-
 
 .profileImageContainer {
   text-align: center;
@@ -26,8 +26,7 @@
   text-decoration: underline;
 }
 
-  
-.img{
+.img {
   border-radius: 50%;
   border: 2px solid #007bff;
   width: 150px;
@@ -35,20 +34,13 @@
   background-color: #c3cad9;
   cursor: pointer;
   margin-bottom: 10px;
-  margin: auto;
 }
 
-
-
-.form{
+.form {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 70%;
  }
-
-.header{
-  text-align: center;
-}
 
 .input {
   border: none;
@@ -64,24 +56,47 @@
   margin-bottom: 10px;
 }
 
-
 .btn {
   padding: 10px;
-  width: 100%;
-   background-color: #007bff;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 7px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100%;
+  width: 70%;
   margin: auto;
 }
 
 .btn:hover {
   background-color: #0056b3;
 }
-.btn:active{
+
+.btn:active {
   background-color: #3c94f1;
 }
 
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .profile {
+    padding: 5rem 1rem;
+    margin-left: 2rem;
+  }
+
+  .img {
+    width: 120px; /* Adjust image size */
+    height: 120px;
+  }
+
+  .input {
+    padding: 8px; /* Smaller padding for inputs */
+  }
+
+  .btn {
+    padding: 8px; /* Smaller button padding */
+  }
+
+  .changeImageLink {
+    font-size: 15px; /* Smaller font size for mobile */
+  }
+}

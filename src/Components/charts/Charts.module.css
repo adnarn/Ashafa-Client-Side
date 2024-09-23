@@ -11,17 +11,24 @@
     margin-top: 1rem;
     font-family: 'Poppins' sans-serif;
 }
-
+.dashIcon{
+    color: #c3cad9;
+    background-color: #c3cad9;
+    background-color: white;
+}
 
 .actions{
+    background: white;
     display: flex;
+    /* justify-content: space-around; */
     gap: 10px;
-    align-items: center;
 }
 
 .edit{
     color: #6c757d;
     cursor: pointer;
+    background-color: white;
+    /* margin-left: 1rem; */
 }
 .button {
     margin-left: 2rem;
@@ -42,15 +49,21 @@
 
 .icons{
     color: rgb(182, 169, 169);
+    background-color: blueviolet;
     
 }
 
 .icon{
     color: rgb(226, 47, 47);
     cursor: pointer;
+    /* margin-left: 1rem; */
+    background-color: white;
 }
 .icon:active{
     color: rgb(141, 83, 83)
 }
 
+.modalContent {
+    background-color: rgba(255, 255, 255, 0.9); 
+  }
   
