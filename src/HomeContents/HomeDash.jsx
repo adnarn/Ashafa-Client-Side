@@ -13,7 +13,7 @@ const HomeDash = ({ theme }) => {
   }, []);
 
   const fetchItems = (query = '') => {
-    const url = query ? `http://localhost:4000/api/search?q=${query}` : 'http://localhost:4000/api/items';
+    const url = query ? `https://ashafa-saver-server.onrender.com/api/search?q=${query}` : 'http://localhost:4000/api/items';
     console.log('Fetching items from URL:', url);
     axios.get(url)
       .then(result => {
