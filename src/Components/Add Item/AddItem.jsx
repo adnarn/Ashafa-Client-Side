@@ -16,7 +16,7 @@ const AddItem = ({ theme }) => {
 
   const Submit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:4000/addItem", { name, price, customer, id })
+    axios.post("https://ashafa-server.onrender.com/addItem", { name, price, customer, id })
       .then(result => {
         console.log(result);
         navigate('/');

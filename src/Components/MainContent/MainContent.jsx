@@ -15,7 +15,7 @@ const MainContent = ({ theme }) => {
 
   const fetchItems = (query = '') => {
 
-    const url = query ? `http://localhost:4000/api/search?q=${query}` : 'http://localhost:4000/api/items';
+    const url = query ? `https://ashafa-server.onrender.com/api/search?q=${query}` : 'https://ashafa-server.onrender.com/api/items';
     axios.get(url)
 
       .then(result => {
@@ -39,7 +39,7 @@ const MainContent = ({ theme }) => {
     }).then((willDelete) => {
       if (willDelete) {
 
-        axios.delete(`http://localhost:4000/api/items/${id}`)
+        axios.delete(`https://ashafa-server.onrender.com/api/items/${id}`)
 
           .then(res => {
             const updatedItems = items.filter((_, i) => i !== index);

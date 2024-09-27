@@ -12,7 +12,7 @@ const UpdateItem = ({ theme }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/api/items/${id}`)
+    axios.get(`https://ashafa-server.onrender.com/api/items/${id}`)
       .then(result => {
         console.log(result)
         setName(result.data.name)
@@ -24,7 +24,7 @@ const UpdateItem = ({ theme }) => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:4000/updateItem/${id}`, { name, price, customer, id })
+    axios.put(`https://ashafa-server.onrender.com/updateItem/${id}`, { name, price, customer, id })
       .then(result => {
         console.log(result);
         navigate('/clipBoard');

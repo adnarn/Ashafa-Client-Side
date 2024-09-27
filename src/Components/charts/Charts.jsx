@@ -11,10 +11,10 @@ ChartJs.register(ArcElement, Legend, Tooltip);
 
 const Charts = ({ theme }) => {
   const data = {
-    labels: ['Approved', 'Pending', 'Error'],
+    labels: ['Profits', 'Expenses'],
     datasets: [{
-      data: [9, 5, 3],
-      backgroundColor: ['aqua', 'orange', 'red']
+      data: [9, 5],
+      backgroundColor: ['aqua', 'orange']
     }]
   };
 
@@ -43,7 +43,7 @@ const Charts = ({ theme }) => {
   }, []);
 
   const fetchItems = () => {
-    const url = 'http://localhost:4000/api/items';
+    const url = 'https://ashafa-server.onrender.com/api/items';
     axios.get(url)
       .then(result => {
         const data = Array.isArray(result.data) ? result.data : [];
