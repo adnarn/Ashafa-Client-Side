@@ -79,7 +79,7 @@ const Charts = ({ theme }) => {
 
 const Submit = (e)=>{
           e.preventDefault();
-          axios.post("http://localhost:4000/task", {taskName})
+          axios.post("https://ashafa-server.onrender.com/task", {taskName})
           .then(result => console.log(result))
           .catch(err => console.log(err))
 
