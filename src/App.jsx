@@ -32,7 +32,7 @@ function AppContent() {
     navigate('/login');
   };
 
-  const [theme, setTheme] = useState("");
+  const [theme, setTheme] = useState("light");
 
   const toggle_mode = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
