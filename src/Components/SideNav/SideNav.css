@@ -7,3 +7,7 @@
     background-color: #222;
     color: white;
 }
+#role{
+    text-align: center;
+    text-transform: capitalize;
+}

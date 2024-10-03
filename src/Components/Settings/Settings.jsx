@@ -1,10 +1,24 @@
 import React from 'react';
 import styles from './Settings.module.css';
 import pic from './profilePic.jpeg'
-
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 const Settings = () => {
+  const role = localStorage.getItem('role');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (role !== 'admin') {
+      toast.error('Unauthorized access'); 
+      navigate('/'); 
+    }
+  }, [role, navigate]);
+
+  if (role !== 'admin') return null; // Return nothing if not admin
+
   return (
     <div className={styles.profile}>
           <div className= {styles.profileImageContainer}>

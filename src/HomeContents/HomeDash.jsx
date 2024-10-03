@@ -6,6 +6,8 @@ import SearchBar from '../Components/SearchBar/SearchBar';
 import { FaPlusCircle } from 'react-icons/fa';
 
 const HomeDash = ({ theme }) => {
+  const role = localStorage.getItem('role');
+
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -50,6 +52,8 @@ const HomeDash = ({ theme }) => {
   };
 
   const groupedItems = groupByDay(items);
+
+
 
   return (
     <div className={`${styles.mainContent} ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
@@ -106,13 +110,14 @@ const HomeDash = ({ theme }) => {
                 </React.Fragment>
               ))}
 
-              {/* Display the overall total price */}
-              <tr>
+              {  role ==='admin'&&
+             ( <tr>
                 <td colSpan="2"><strong>Overall Total</strong></td>
                 <td colSpan="3">
                   <strong>&#8358;{items.reduce((acc, item) => acc + item.price, 0)}</strong>
                 </td>
-              </tr>
+              </tr>)
+                }
             </tbody>
           </table>
         </div>

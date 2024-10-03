@@ -79,7 +79,7 @@ const Charts = ({ theme }) => {
 
 const Submit = (e)=>{
           e.preventDefault();
-          axios.post("http://localhost:4000/task", {taskName})
+          axios.post("https://ashafa-server.onrender.com/task", {taskName})
           .then(result => console.log(result))
           .catch(err => console.log(err))
 
@@ -88,7 +88,7 @@ const Submit = (e)=>{
 }
 
   useEffect(() => {
-    axios.get('http://localhost:4000/tasks')
+    axios.get('https://ashafa-server.onrender.com/tasks')
       .then(result => {
         setTasks(result.data);
       })
@@ -96,7 +96,7 @@ const Submit = (e)=>{
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:4000/deleteTask/${id}`)
+    axios.delete(`https://ashafa-server.onrender.com/deleteTask/${id}`)
       .then(res => {
         window.location.reload()
 

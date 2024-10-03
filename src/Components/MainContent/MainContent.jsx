@@ -8,6 +8,7 @@ import swal from 'sweetalert';
 
 const MainContent = ({ theme }) => {
   const [items, setItems] = useState([]);
+  const role = localStorage.getItem('role');
 
   useEffect(() => {
     fetchItems(); // Initial fetch of all items
@@ -141,13 +142,14 @@ const MainContent = ({ theme }) => {
                 </React.Fragment>
               ))}
 
-              {/* Display the overall total price */}
-              <tr>
+              { role === 'admin' &&
+             ( <tr>
                 <td colSpan="2"><strong>Overall Total</strong></td>
                 <td colSpan="4">
                   <strong>&#8358;{items.reduce((acc, item) => acc + item.price, 0)}</strong>
                 </td>
-              </tr>
+              </tr>)
+              }
             </tbody>
           </table>
         </div>

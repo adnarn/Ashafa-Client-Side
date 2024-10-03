@@ -6,16 +6,26 @@ import { FaChartArea, FaClipboardList, FaCog, FaHome, FaPlus, FaUser } from 'rea
 import './SideNav.css'
 
 const SideNav = ({theme, setTheme}) => {
+  const role = localStorage.getItem('role');
   const toggle_mode = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
+
+  console.log('User Role:', role);  
+  
+ 
+
   return (
     
     <div className={theme === 'light' ? 'light-theme' : 'dark-theme'}>
   <aside className={`${styles.SideNav} ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
+            
+         <div className="profile">
             <Link to = '/profile'>
                   <div><img src={profilePic} className={styles.img} /></div>
           </Link>
+              <p  id='role'>{role}</p>
+        </div>
           
           <div className={styles.center} > 
 
@@ -31,9 +41,12 @@ const SideNav = ({theme, setTheme}) => {
                     <div ><FaClipboardList className={styles.icons} /></div>
             </Link>
 
-              <Link to = '/charts'>
-                    <div ><FaChartArea className={styles.icons} /></div>
-              </Link>
+           { 
+            role === 'admin' &&
+          ( <Link to = '/charts'>
+                  <div ><FaChartArea className={styles.icons} /></div>
+            </Link>
+           ) }
 
 
             <Link to = '/profile'>

@@ -10,25 +10,31 @@ import Profile from './ProfileSetting';
 import Login from './Components/auth/LogReg/Login';
 import Signup from './Components/auth/LogReg/Signup';
 import SideNav from './Components/SideNav';
-import TopNav from './Components/TopNav'; // Import TopNav component
+import TopNav from './Components/TopNav'; 
 import Settings from './Components/Settings/Settings';
 import Receipt from './PDF/Reciept';
 import Charts from './Components/charts/Charts';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
     <BrowserRouter>
       <AppContent />
+      <ToastContainer />
     </BrowserRouter>
   );
 }
 
 function AppContent() {
   const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     navigate('/login');
   };
 
@@ -42,6 +48,9 @@ function AppContent() {
     document.body.style.backgroundColor = theme === 'light' ? '#fff' : '#222';
     document.body.style.color = theme === 'light' ? '#000' : '#fff';
   }, [theme]);
+
+
+
 
   return (
     <div className={`app-container ${theme === 'light' ? 'light-app' : 'dark-app'}`}>
@@ -58,7 +67,6 @@ function AppContent() {
         <Route path="/register" element={<Signup />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/receipt/:id" element={<Receipt />} />
-
       </Routes>
     </div>
   );

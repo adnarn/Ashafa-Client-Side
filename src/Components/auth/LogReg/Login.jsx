@@ -24,62 +24,63 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+  
     if (!formData.email || !formData.password) {
-        setError('Please fill in all fields.');
-        return;
+      setError('Please fill in all fields.');
+      return;
     }
-
+  
     setLoading(true);
     setError('');
-    setPasswordError(false);   
-
+    setPasswordError(false);
+  
     try {
-
-        const response = await fetch('https://ashafa-server.onrender.com/auth/login', {
-
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
+      const response = await fetch('https://ashafa-server.onrender.com/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        const token = result.token;
+        localStorage.setItem('token', token);
+  
+        // Manually decode the JWT to extract the payload
+        const base64Url = token.split('.')[1]; // Get the payload part (second part of the token)
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Replace URL-unsafe characters
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+  
+        const decodedToken = JSON.parse(jsonPayload);
+        const role = decodedToken.role;
+  
+        // Store the role in local storage
+        localStorage.setItem('role', role);
+  
+        navigate('/');
+        
+        swal({
+          title: "Logged in successfully",
+          icon: "success",
+          button: "OK",
         });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-        }
-
-        const result = await response.json();
-        console.log(result);
-
-        if (response.ok) {
-            localStorage.setItem('token', result.token);
-            navigate('/');
-            
-            swal({
-              title: "Logged in successfully",
-              icon: "success",
-              button: "OK",
-            }) 
-        } else {
-            console.error('Login failed:', result.message);
-            if (result.message === 'Incorrect email and password') {
-                setPasswordError(true); 
-            }
-            setError(result.message || 'Login failed. Please enter the correct Email and Password.');
-        }
+      } else {
+        setError(result.message || 'Login failed. Please try again.');
+      }
     } catch (error) {
-        console.error('Error:', error.message);
-        setError('An error occurred. Please try again later.');
+      setError('An error occurred. Please try again later.');
     } finally {
-        setLoading(false);
-        setFormData({
-            email: '',
-            password: ''
-        });
+      setLoading(false);
+      setFormData({ email: '', password: '' });
     }
-};
+  };
+  
 
   return (
     <Form onSubmit={handleSubmit}>
