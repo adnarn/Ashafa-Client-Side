@@ -38,7 +38,7 @@ function AppContent() {
     navigate('/login');
   };
 
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("");
 
   const toggle_mode = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
