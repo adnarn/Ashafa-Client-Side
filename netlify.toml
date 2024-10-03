@@ -1,6 +1,11 @@
 [build]
+<<<<<<< HEAD
   command = "npm run build" 
   publish = "dist"         
+=======
+  command = "npm run build"  # or "yarn build", depending on your setup
+  publish = "dist"          # or "dist" for Vite-based projects
+>>>>>>> eb6642bc2e10c916e10023c68515a2bcba15205e
 
 [[redirects]]
   from = "/*"
