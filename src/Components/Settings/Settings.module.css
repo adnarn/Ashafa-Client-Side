@@ -1,87 +1,109 @@
-.profile{
-    margin-left: 70px;
-    padding: 20rem;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+
+.profile {
+  margin: 0 auto; /* Centering for mobile */
+  padding: 20rem 2rem; /* Adjusting padding for smaller screens */
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: auto; /* Change to auto for responsive height */
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: -16rem;
+  background: transparent;
 }
 
-  
-  .profileImageContainer {
-    text-align: center;
-    margin-bottom: 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .changeImageLink {
-    color: gray;
-    font-size: 17px;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-
-    
-  .img{
-    border-radius: 50%;
-    border: 2px solid #007bff;
-    width: 150px;
-    height: 150px;
-    background-color: #c3cad9;
-    cursor: pointer;
-    margin-bottom: 10px;
-    margin: auto;
+.profileImageContainer {
+  text-align: center;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-  
 
- 
-  .form{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-   }
+.changeImageLink {
+  color: gray;
+  font-size: 17px;
+  cursor: pointer;
+  text-decoration: underline;
+}
 
-  .header{
-    text-align: center;
+.img {
+  border-radius: 50%;
+  border: 2px solid #007bff;
+  width: 150px;
+  height: 150px;
+  background-color: #c3cad9;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  background: transparent;
+  margin-top: -1rem;
+  /* box-shadow: 0 0 10px rgba(192, 189, 189, 0.1); */
+ }
+
+.input {
+  border: none;
+  outline-color: gray;
+  text-transform: capitalize;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 600;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.btn {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 70%;
+  margin: auto;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.btn:active {
+  background-color: #3c94f1;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .profile {
+    padding: 5rem 1rem;
+    margin-left: 2rem;
+    margin-top: -3rem;;
   }
-  
+
+  .img {
+    width: 120px; /* Adjust image size */
+    height: 120px;
+  }
+
   .input {
-    border: none;
-    outline-color: gray;
-    text-transform: capitalize;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    text-align: center;
-    font-weight: 600;
-    width: 100%;
-    margin: auto;
-    margin-bottom: 10px;
+    padding: 8px; /* Smaller padding for inputs */
   }
 
-  
   .btn {
-    padding: 10px;
-    width: 100%;
-     background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-    margin: auto;
+    padding: 8px; /* Smaller button padding */
   }
-  
-  .btn:hover {
-    background-color: #0056b3;
+
+  .changeImageLink {
+    font-size: 15px; /* Smaller font size for mobile */
   }
-  .btn:active{
-    background-color: #3c94f1;
-  }
-  
+}

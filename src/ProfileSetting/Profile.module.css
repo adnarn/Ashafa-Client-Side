@@ -1,3 +1,5 @@
+
+
 .profile {
   margin: 0 auto; /* Centering for mobile */
   padding: 20rem 2rem; /* Adjusting padding for smaller screens */
@@ -8,7 +10,8 @@
   justify-content: center;
   align-items: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: -4rem;
+  margin-top: -16rem;
+  background: transparent;
 }
 
 .profileImageContainer {
@@ -40,6 +43,9 @@
   display: flex;
   flex-direction: column;
   width: 70%;
+  background: transparent;
+  margin-top: -1rem;
+  box-shadow: 0 0 10px rgba(192, 189, 189, 0.1);
  }
 
 .input {
@@ -81,6 +87,7 @@
   .profile {
     padding: 5rem 1rem;
     margin-left: 2rem;
+    margin-top: -3rem;;
   }
 
   .img {
