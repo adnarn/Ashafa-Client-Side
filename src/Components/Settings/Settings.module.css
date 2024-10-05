@@ -51,7 +51,6 @@
 .input {
   border: none;
   outline-color: gray;
-  text-transform: capitalize;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

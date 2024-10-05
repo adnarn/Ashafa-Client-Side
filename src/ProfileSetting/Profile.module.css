@@ -45,13 +45,12 @@
   width: 70%;
   background: transparent;
   margin-top: -1rem;
-  box-shadow: 0 0 10px rgba(192, 189, 189, 0.1);
+  /* box-shadow: 0 0 10px rgba(192, 189, 189, 0.1); */
  }
 
 .input {
   border: none;
   outline-color: gray;
-  text-transform: capitalize;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;

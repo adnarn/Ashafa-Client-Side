@@ -77,35 +77,36 @@ const Charts = ({ theme }) => {
 
 
 
-const Submit = (e)=>{
-          e.preventDefault();
-          axios.post("https://ashafa-server.onrender.com/task", {taskName})
-          .then(result => console.log(result))
-          .catch(err => console.log(err))
-
-          window.location.reload()
-
-}
-
-  useEffect(() => {
-    axios.get('https://ashafa-server.onrender.com/tasks')
+  const Submit = (e) => {
+    e.preventDefault();
+    
+    axios.post("https://ashafa-server.onrender.com/task", { taskName })
       .then(result => {
-        setTasks(result.data);
+        console.log(result);
+        
+        // Fetch the updated tasks after adding a new one
+        axios.get('https://ashafa-server.onrender.com/tasks')
+          .then(result => {
+            setTasks(result.data);  // Update tasks state
+            setTaskName('');         // Clear the input after submission
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
-  }, []);
+  };
+  
 
   const handleDelete = (id) => {
     axios.delete(`https://ashafa-server.onrender.com/deleteTask/${id}`)
       .then(res => {
-        window.location.reload()
-
         console.log(res);
-        setTasks(users.filter(task => task._id !== id));
         
+        // Filter out the deleted task from the current tasks state
+        setTasks(tasks.filter(task => task._id !== id));
       })
       .catch(err => console.log(err));
   };
+  
 
   return (
     <div className={`charts ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>

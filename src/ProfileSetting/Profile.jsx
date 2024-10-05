@@ -30,6 +30,7 @@ const Profile = () => {
       .catch(error => {
         toast.error('Failed to fetch profile');
         console.error(error);
+        
       });
   }, [role, navigate]);
 
@@ -45,17 +46,23 @@ const Profile = () => {
     axios.put('https://ashafa-server.onrender.com/api/admin/profile', { name, email, password })
       .then(response => {
         toast.success('Profile updated successfully');
+        setPassword('');
+        setConfirmPassword('');
       })
       .catch(error => {
         toast.error('Failed to update profile');
         console.error(error);
+        setName('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
       });
   };
 
   if (role !== 'admin') return null; // Return nothing if not admin
 
   return (
-    <div  className="bg-container">
+    <div>
       <div className={styles.profile}>
         <div className={styles.profileImageContainer}>
           <img src={pic} className={styles.img} alt="Profile" />

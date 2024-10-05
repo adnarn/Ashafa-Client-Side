@@ -67,11 +67,12 @@
   /* Pie chart */
   .pieChart {
     width: 50%;
-    height: 300px;
+    height: 350px;
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 3rem;
     font-size: 1.2rem;
   }
   

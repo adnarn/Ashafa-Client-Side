@@ -41,12 +41,12 @@ const TopNav = ({ theme, toggle_mode }) => {
         <nav className={styles.TopNavLogin}>
           <h5 className={styles.dashName}>Dex Dash</h5>
           <div className={styles.button}>
-            {/* <Link to="login">
+            <Link to="login">
               <button className="btn btn-success">Login</button>
             </Link>
             <Link to="register">
               <button className="btn btn-primary">Signup</button>
-            </Link> */}
+            </Link>
           </div>
         </nav>
       )}
