@@ -4,8 +4,8 @@ import './charts.css';
 import styles from './Charts.module.css';
 import { Chart as ChartJs, ArcElement, Legend, Tooltip } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import { FaRegEdit, FaReceipt, FaTrash, FaTimes } from 'react-icons/fa';
-import swal from 'sweetalert';
+import { FaRegEdit, FaReceipt, FaTrash, FaTimes, FaPlusCircle } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 ChartJs.register(ArcElement, Legend, Tooltip);
 
@@ -104,12 +104,20 @@ const Charts = ({ theme }) => {
         // Filter out the deleted task from the current tasks state
         setTasks(tasks.filter(task => task._id !== id));
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err)); 
   };
   
 
   return (
     <div className={`charts ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
+      <div className="button"> 
+            <Link to='/add-selected-item'>
+            <button className={styles.button}> 
+            <FaPlusCircle className={styles.icons} />
+               Add Item
+              </button>
+          </Link>
+           </div>
       <div className={`topContents ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
         <div className={`records ${theme === 'light' ? 'light-pieChart' : 'dark-pieChart'}`}>
           <h5>TODAY'S INCOME= &#8358;{todayItems.reduce((acc, item) => acc + item.price, 0)}</h5>

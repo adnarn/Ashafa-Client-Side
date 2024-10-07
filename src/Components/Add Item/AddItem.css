@@ -29,6 +29,17 @@
     border-radius: 5px; /* add some rounded corners */
     cursor: pointer; /* change cursor on hover */
   }
+
+  .button-class{
+    display: flex;
+    justify-content: right;
+    margin: auto;
+    
+  }
+
+  .ItemContainer{
+    margin-left: 5rem;
+  }
   
   /* Media queries */
   /* For small screens (e.g., mobile devices) */

@@ -16,6 +16,9 @@ import Receipt from './PDF/Reciept';
 import Charts from './Components/charts/Charts';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AddSelectableItem from './Components/Add Item/AddSelectableItem';
+import Items from './Components/Add Item/Items';
+import UpdateSelectableItem from './Components/Update/UpdateSelectableItem';
 
 
 function App() {
@@ -38,7 +41,7 @@ function AppContent() {
     navigate('/login');
   };
 
-  const [theme, setTheme] = useState("");
+  const [theme, setTheme] = useState("light");
 
   const toggle_mode = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
@@ -60,7 +63,10 @@ function AppContent() {
         <Route path="/" element={token ? <HomeDash theme={theme} /> : <Login />} />
         <Route path="/clipBoard" element={token ? <MainContent theme={theme} /> : <Login />} />
         <Route path="/add" element={token ? <AddItem theme={theme} /> : <Login />} />
+        <Route path="/add-selected-item" element={token ? <AddSelectableItem theme={theme} /> : <Login />} />
+        <Route path="/show-items" element={token ? <Items theme={theme} /> : <Login />} />
         <Route path="/update/:id" element={token ? <UpdateItem theme={theme} /> : <Login />} />
+        <Route path="/update-items/:id" element={token ? <UpdateSelectableItem theme={theme} /> : <Login />} />
         <Route path="/profile" element={token ? <Profile theme={theme} /> : <Login />} />
         <Route path="/charts" element={token ? <Charts theme={theme} /> : <Login />} />
         <Route path="/login" element={<Login />} />

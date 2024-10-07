@@ -12,6 +12,7 @@ const Receipt = () => {
   const [approoved, setApprooved] = useState('');
   const [message, setMessage] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [comment, setComment] = useState('');
   const [date, setDate] = useState('');
   const { id } = useParams();
   const [quants, setQuants] = useState('');
@@ -28,6 +29,7 @@ const Receipt = () => {
           setDate(result.data.date)
           setCustomer(result.data.customer || '');
           setQuantity(result.data.quantity || '');
+          setComment(result.data.comment || '');
           setApprooved('APPROOVED');
           setMessage('Transaction Approoved');
           setIsReceiptVisible(true); // Set visibility to true after fetching data
@@ -40,7 +42,6 @@ const Receipt = () => {
         setCustomer('');
         setApprooved('FAILED');
         setMessage('Transaction Failed.');
-        setQuants('');
         setIsReceiptVisible(false); // Set visibility to false if there's an error
       });
   }, [id]);
@@ -80,8 +81,12 @@ const Receipt = () => {
                     <td>{message}</td>
                   </tr>
                   <tr>
-                    <td>{quants}</td>
+                    <td>QUANTITY</td>
                     <td>{quantity}</td>
+                  </tr>
+                  <tr>
+                    <td>COMMENT</td>
+                    <td>{comment}</td>
                   </tr>
                 </tbody>
               </table>
