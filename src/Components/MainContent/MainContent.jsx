@@ -81,7 +81,6 @@ const MainContent = ({ theme }) => {
 
   const groupedItems = groupByDay(items);
 
-   if (role !== 'admin') return null; // Return nothing if not admin
 
   return (
     <div className={`${styles.mainContent} ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
