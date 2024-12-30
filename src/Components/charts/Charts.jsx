@@ -43,7 +43,8 @@ const Charts = ({ theme }) => {
   }, []);
 
   const fetchItems = () => {
-    const url = 'https://ashafa-server.onrender.com/api/items';
+    // const url = 'https://ashafa-server.onrender.com/api/items';
+        const url = 'https://cafe-working-server.vercel.app/';
     axios.get(url)
       .then(result => {
         const data = Array.isArray(result.data) ? result.data : [];
@@ -80,12 +81,12 @@ const Charts = ({ theme }) => {
   const Submit = (e) => {
     e.preventDefault();
     
-    axios.post("https://ashafa-server.onrender.com/task", { taskName })
+    axios.post("https://cafe-working-server.vercel.app/task", { taskName })
       .then(result => {
         console.log(result);
         
         // Fetch the updated tasks after adding a new one
-        axios.get('https://ashafa-server.onrender.com/tasks')
+        axios.get('https://cafe-working-server.vercel.app/tasks')
           .then(result => {
             setTasks(result.data);  // Update tasks state
             setTaskName('');         // Clear the input after submission
@@ -97,7 +98,7 @@ const Charts = ({ theme }) => {
   
 
   const handleDelete = (id) => {
-    axios.delete(`https://ashafa-server.onrender.com/deleteTask/${id}`)
+    axios.delete(`https://cafe-working-server.vercel.app/deleteTask/${id}`)
       .then(res => {
         console.log(res);
         
