@@ -20,7 +20,7 @@ const Receipt = () => {
   const [isReceiptVisible, setIsReceiptVisible] = useState(false);
 
   useEffect(() => {
-    axios.get(`https://cafe-working-server.vercel.app/${id}`)
+    axios.get(`https://records-saver.onrender.com/api/items${id}`)
       .then(result => {
         console.log(result);
         if (result.data) {
