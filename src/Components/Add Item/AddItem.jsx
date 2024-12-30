@@ -18,7 +18,7 @@ const AddItem = ({ theme }) => {
 
   // Fetch selectable items from the backend on component mount
   useEffect(() => {
-    axios.get("https://ashafa-server.onrender.com/selectable-items")
+    axios.get("https://cafe-working-server.vercel.app/selectable-items")
       .then((response) => {
         setSelectableItems(response.data);
       })
@@ -49,7 +49,7 @@ const AddItem = ({ theme }) => {
 
   const Submit = (e) => {
     e.preventDefault();
-    axios.post("https://ashafa-server.onrender.com/addItem", { name, quantity, price, customer, comment, id })
+    axios.post("https://cafe-working-server.vercel.app/addItem", { name, quantity, price, customer, comment, id })
       .then(result => {
         console.log(result);
         navigate('/clipboard');
