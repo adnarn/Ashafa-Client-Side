@@ -15,7 +15,7 @@ const HomeDash = ({ theme }) => {
   }, []);
 
   const fetchItems = (query = '') => {
-    const url = query ? `https://ashafa-saver-server.onrender.com/api/search?q=${query}` : 'https://ashafa-server.onrender.com/api/items';
+    const url = query ? `https://cafe-working-server.vercel.app/api/search?q=${query}` : 'https://cafe-working-server.vercel.app/api/items';
     console.log('Fetching items from URL:', url);
     axios.get(url)
       .then(result => {
