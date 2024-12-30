@@ -16,7 +16,7 @@ const MainContent = ({ theme }) => {
 
   const fetchItems = (query = '') => {
 
-    const url = query ? `https://cafe-working-server.vercel.app/api/search?q=${query}` : 'https://cafe-working-server.vercel.app/api/items';
+    const url = query ? `https://cafe-working-server.vercel.app/search?q=${query}` : 'https://cafe-working-server.vercel.app/';
     axios.get(url)
 
       .then(result => {
