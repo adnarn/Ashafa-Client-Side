@@ -35,7 +35,7 @@ const Login = () => {
     setPasswordError(false);
   
     try {
-      const response = await fetch('https://ashafa-server.onrender.com/auth/login', {
+      const response = await fetch('https://cafe-working-server.vercel.app/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
