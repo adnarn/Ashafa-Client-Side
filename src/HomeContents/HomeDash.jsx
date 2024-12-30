@@ -15,7 +15,7 @@ const HomeDash = ({ theme }) => {
   }, []);
 
   const fetchItems = (query = '') => {
-    const url = query ? `https://cafe-working-server.vercel.app/api/search?q=${query}` : 'https://cafe-working-server.vercel.app/api/items';
+    const url = query ? `https://cafe-working-server.vercel.app/search?q=${query}` : 'https://cafe-working-server.vercel.app/';
     console.log('Fetching items from URL:', url);
     axios.get(url)
       .then(result => {
