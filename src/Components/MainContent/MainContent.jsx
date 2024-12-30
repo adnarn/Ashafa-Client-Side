@@ -16,7 +16,7 @@ const MainContent = ({ theme }) => {
 
   const fetchItems = (query = '') => {
 
-    const url = query ? `https://ashafa-server.onrender.com/api/search?q=${query}` : 'https://ashafa-server.onrender.com/api/items';
+    const url = query ? `https://cafe-server-sigma.vercel.app/api/search?q=${query}` : 'https://cafe-server-sigma.vercel.app/api/items';
     axios.get(url)
 
       .then(result => {
@@ -40,7 +40,7 @@ const MainContent = ({ theme }) => {
     }).then((willDelete) => {
       if (willDelete) {
 
-        axios.delete(`https://ashafa-server.onrender.com/api/items/${id}`)
+        axios.delete(`https://cafe-server-sigma.vercel.app/api/items/${id}`)
 
           .then(res => {
             const updatedItems = items.filter((_, i) => i !== index);
