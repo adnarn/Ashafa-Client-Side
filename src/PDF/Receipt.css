@@ -78,3 +78,46 @@
   .starr{
     margin-top: -12px;
   }
+
+
+/* Print-Specific Styles */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
+
+  .receipt {
+    width: 100%; /* Use the full width for better visibility */
+    max-width: none; /* Ensure no restrictions on width */
+    border: none; /* Remove borders for cleaner printing */
+    margin: 0;
+    padding: 10px;
+    font-size: 1em; /* Make text slightly larger for print */
+  }
+
+  .receipt-header, .receipt-footer {
+    text-align: center;
+  }
+
+  .company-logo {
+    max-width: 100px;
+  }
+
+  .receipt-body table {
+    width: 100%;
+  }
+
+  .receipt-body th, .receipt-body td {
+    font-size: 1em;
+  }
+
+  .total {
+    font-size: 1.2em;
+  }
+
+  button {
+    display: none; /* Hide buttons in print view */
+  }
+}
