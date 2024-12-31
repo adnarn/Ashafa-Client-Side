@@ -89,6 +89,7 @@ const AddItem = ({ theme }) => {
         id='Quantity'
         value={quantity} 
         onChange={handleQuantityChange}  // This will recalculate the price
+        required
       />
 
       {/* Automatically filled price field based on selected item and quantity */}
@@ -99,6 +100,7 @@ const AddItem = ({ theme }) => {
         id='Price'
         value={price}
         readOnly // Make it read-only since it should update automatically
+        required
       />
 
       <input
@@ -108,6 +110,7 @@ const AddItem = ({ theme }) => {
         id='Customer'
         value={customer}
         onChange={(e) => setCustomer(e.target.value)}
+        required
       />
 
       <input
@@ -117,6 +120,7 @@ const AddItem = ({ theme }) => {
         id='comment'
         value={comment}
         onChange={(e) => setComment(e.target.value)}
+        required
       />
   
 
