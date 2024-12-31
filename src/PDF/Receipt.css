@@ -109,7 +109,7 @@
   }
   .receipt-body table {
     width: 100%;
-    margin-left: 0;
+    margin-left: 13px;
   }
   .receipt-body td {
     padding: 5px 0;
