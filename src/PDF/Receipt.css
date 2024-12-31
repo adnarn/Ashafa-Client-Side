@@ -117,4 +117,20 @@
   button {
     display: none; /* Hide buttons in print view */
   }
+
+  /* Hide everything except receipt for print */
+  body * {
+    visibility: hidden;
+  }
+
+  .receipt, .receipt * {
+    visibility: visible;
+  }
+
+  .receipt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
 }
