@@ -45,9 +45,10 @@ const MainContent = ({ theme }) => {
           .then(res => {
             const updatedItems = items.filter((_, i) => i !== index);
             setItems(updatedItems);
-            swal("Your item hapias been deleted!", {
+            swal("Your item has been deleted!", {
               icon: "success",
             });
+            fetchItems()
           })
           .catch(err => {
             console.log(err);
