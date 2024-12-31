@@ -90,8 +90,8 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;
-    height: 50%;
+    width: 90%;
+    height: 70%;
     margin: 0;
     padding: 12px;
     font-size: 11pt;
@@ -109,7 +109,7 @@
   }
   .receipt-body table {
     width: 100%;
-    margin-left: 13px;
+    margin-left: 8rem;
   }
   .receipt-body td {
     padding: 5px 0;
