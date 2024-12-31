@@ -22,17 +22,16 @@ const Receipt = () => {
   useEffect(() => {
     axios.get(`https://cafe-working-server.vercel.app/getItem/${id}`)
       .then(result => {
-        console.log(result);
         if (result.data) {
           setName(result.data.name || '');
           setPrice(result.data.price || '');
-          setDate(result.data.date)
+          setDate(result.data.date);
           setCustomer(result.data.customer || '');
           setQuantity(result.data.quantity || '');
           setComment(result.data.comment || '');
           setApprooved('APPROOVED');
           setMessage('Transaction Approoved');
-          setIsReceiptVisible(true); // Set visibility to true after fetching data
+          setIsReceiptVisible(true);
         }
       })
       .catch(err => {
@@ -42,9 +41,13 @@ const Receipt = () => {
         setCustomer('');
         setApprooved('FAILED');
         setMessage('Transaction Failed.');
-        setIsReceiptVisible(false); // Set visibility to false if there's an error
+        setIsReceiptVisible(false);
       });
   }, [id]);
+
+  const handleFallbackPrint = () => {
+    window.print();
+  };
 
   return (
     <div>
@@ -52,7 +55,7 @@ const Receipt = () => {
         <div>
           <div ref={receiptRef} className="receipt">
             <div className="receipt-header">
-              <img src={logo} alt='' className="company-logo" />
+              <img src={logo} alt="" className="company-logo" />
               <div className="company-name">AshafsLink Bussiness Center</div>
               <div className="company-address">17 College Road Ungwan Dosa, Kaduna</div>
               <div className="phone">09018181999</div>
@@ -90,13 +93,12 @@ const Receipt = () => {
                   </tr>
                 </tbody>
               </table>
-
               <div className="total">
                 <div className="star">**********************</div>
                 <p>NGN {price}</p>
                 <div className="starr">**********************</div>
               </div>
-              <div className='approoved'>{approoved}</div>
+              <div className="approoved">{approoved}</div>
             </div>
             <div className="receipt-footer">
               <p>Thanks for working with us</p>
@@ -104,10 +106,17 @@ const Receipt = () => {
           </div>
           <div style={{ marginTop: '20px', textAlign: 'center' }}>
             <ReactToPrint
-              trigger={() => <button className='button' style={{ padding: '10px 20px', fontSize: '16px' }}>Print Receipt</button>}
+              trigger={() => <button className="button" style={{ padding: '10px 20px', fontSize: '16px' }}>Print Receipt</button>}
               content={() => receiptRef.current}
               documentTitle={'INVOICE'}
             />
+            <button
+              className="button"
+              style={{ padding: '10px 20px', fontSize: '16px', marginLeft: '10px' }}
+              onClick={handleFallbackPrint}
+            >
+              Fallback Print
+            </button>
           </div>
         </div>
       )}
