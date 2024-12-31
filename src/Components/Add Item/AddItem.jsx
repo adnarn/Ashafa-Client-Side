@@ -18,7 +18,7 @@ const AddItem = ({ theme }) => {
 
   // Fetch selectable items from the backend on component mount
   useEffect(() => {
-    axios.get("https://cafe-working-server.vercel.app/selectable-items")
+    axios.get(" https://ashafa-server.onrender.com/selectable-items")
       .then((response) => {
         setSelectableItems(response.data);
       })
