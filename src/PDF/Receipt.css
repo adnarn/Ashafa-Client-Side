@@ -79,3 +79,65 @@
     margin-top: -12px;
   }
 /* Print-Specific Styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .receipt, .receipt * {
+    visibility: visible;
+  }
+  .receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 15px;
+    font-size: 12pt;
+    line-height: 18pt;
+  }
+  .print-controls {
+    display: none;
+  }
+  .receipt-header {
+    margin-bottom: 20px;
+  }
+  .company-logo {
+    max-width: 100px;
+    height: auto;
+  }
+  .receipt-body table {
+    width: 100%;
+    margin-left: 0;
+  }
+  .receipt-body td {
+    padding: 5px 0;
+  }
+  .total {
+    margin-top: 20px;
+  }
+  .receipt-footer {
+    margin-top: 30px;
+  }
+}
+
+/* Styles for print button */
+.print-controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
