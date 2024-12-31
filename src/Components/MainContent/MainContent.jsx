@@ -40,12 +40,12 @@ const MainContent = ({ theme }) => {
     }).then((willDelete) => {
       if (willDelete) {
 
-        axios.delete(`https://cafe-working-server.vercel.app/api/items/${id}`)
+        axios.delete(`https://cafe-working-server.vercel.app/deleteItem/${id}`)
 
           .then(res => {
             const updatedItems = items.filter((_, i) => i !== index);
             setItems(updatedItems);
-            swal("Your item has been deleted!", {
+            swal("Your item hapias been deleted!", {
               icon: "success",
             });
           })
