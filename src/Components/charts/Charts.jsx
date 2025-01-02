@@ -1,21 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './charts.css';
-import styles from './Charts.module.css';
-import { Chart as ChartJs, ArcElement, Legend, Tooltip } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
-import { FaRegEdit, FaReceipt, FaTrash, FaTimes, FaPlusCircle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./charts.css";
+import styles from "./Charts.module.css";
+import { Chart as ChartJs, ArcElement, Legend, Tooltip } from "chart.js";
+import { Pie } from "react-chartjs-2";
+import {
+  FaRegEdit,
+  FaReceipt,
+  FaTrash,
+  FaTimes,
+  FaPlusCircle,
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 ChartJs.register(ArcElement, Legend, Tooltip);
 
 const Charts = ({ theme }) => {
   const data = {
-    labels: ['Profits', 'Expenses'],
-    datasets: [{
-      data: [9, 5],
-      backgroundColor: ['aqua', 'orange']
-    }]
+    labels: ["Profits", "Expenses"],
+    datasets: [
+      {
+        data: [9, 5],
+        backgroundColor: ["aqua", "orange"],
+      },
+    ],
   };
 
   const options = {
@@ -24,33 +32,33 @@ const Charts = ({ theme }) => {
     plugins: {
       legend: {
         display: true,
-        position: 'bottom',
+        position: "bottom",
         labels: {
           boxWidth: 20,
-          padding: 15
-        }
+          padding: 15,
+        },
       },
       tooltip: {
         enabled: true,
-      }
-    }
+      },
+    },
   };
 
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetchItems(); 
+    fetchItems();
   }, []);
 
   const fetchItems = () => {
-    // const url = 'https://ashafa-server.onrender.com/api/items';
-        const url = 'https://cafe-working-server.vercel.app/';
-    axios.get(url)
-      .then(result => {
+    const url = "https://cafe-working-server.vercel.app/";
+    axios
+      .get(url)
+      .then((result) => {
         const data = Array.isArray(result.data) ? result.data : [];
         setItems(data);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   // Helper function to format date (adjust based on the date format in your backend)
@@ -68,132 +76,195 @@ const Charts = ({ theme }) => {
 
   // Filter items to get only today's items
   const today = new Date();
-  const todayItems = items.filter(item => isSameDay(item.createdAt, today));
+  const todayItems = items.filter((item) => isSameDay(item.createdAt, today));
 
   //Todo api
 
   const [tasks, setTasks] = useState([]);
   const [taskName, setTaskName] = useState([]);
- 
-
-
 
   const Submit = (e) => {
     e.preventDefault();
-    
-    axios.post("https://cafe-working-server.vercel.app/task", { taskName })
-      .then(result => {
+
+    axios
+      .post("https://cafe-working-server.vercel.app/task", { taskName })
+      .then((result) => {
         console.log(result);
-        
+
         // Fetch the updated tasks after adding a new one
-        axios.get('https://cafe-working-server.vercel.app/tasks')
-          .then(result => {
-            setTasks(result.data);  // Update tasks state
-            setTaskName('');         // Clear the input after submission
+        axios
+          .get("https://ashafa-server.onrender.com/tasks")
+          .then((result) => {
+            setTasks(result.data); // Update tasks state
+            setTaskName(""); // Clear the input after submission
           })
-          .catch(err => console.log(err));
+          .catch((err) => console.log(err));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
-  
 
   const handleDelete = (id) => {
-    axios.delete(`https://cafe-working-server.vercel.app/deleteTask/${id}`)
-      .then(res => {
+    axios
+      .delete(`https://cafe-working-server.vercel.app/deleteTask/${id}`)
+      .then((res) => {
         console.log(res);
-        
+
         // Filter out the deleted task from the current tasks state
-        setTasks(tasks.filter(task => task._id !== id));
+        setTasks(tasks.filter((task) => task._id !== id));
       })
-      .catch(err => console.log(err)); 
+      .catch((err) => console.log(err));
   };
-  
+
+  // Calculate total price for today
+const todayTotalPrice = todayItems.reduce((acc, entry) => {
+  const entryTotal = entry.items.reduce((entryAcc, item) => entryAcc + item.price, 0);
+  return acc + entryTotal;
+}, 0);
+
+// Calculate overall total price
+const overallTotalPrice = items.reduce((acc, entry) => {
+  const entryTotal = entry.items.reduce((entryAcc, item) => entryAcc + item.price, 0);
+  return acc + entryTotal;
+}, 0);
+
 
   return (
-    <div className={`charts ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
-      <div className="button"> 
-            <Link to='/add-selected-item'>
-            <button className={styles.button}> 
+    <div
+      className={`charts ${theme === "light" ? "light-theme" : "dark-theme"}`}
+    >
+      <div className="button">
+        <Link to="/add-selected-item">
+          <button className={styles.button}>
             <FaPlusCircle className={styles.icons} />
-               Add Item
-              </button>
-          </Link>
-           </div>
-      <div className={`topContents ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
-        <div className={`records ${theme === 'light' ? 'light-pieChart' : 'dark-pieChart'}`}>
-          <h5>TODAY'S INCOME= &#8358;{todayItems.reduce((acc, item) => acc + item.price, 0)}</h5>
+            Add Item
+          </button>
+        </Link>
+      </div>
+      <div
+        className={`topContents ${
+          theme === "light" ? "light-theme" : "dark-theme"
+        }`}
+      >
+        <div
+          className={`records ${
+            theme === "light" ? "light-pieChart" : "dark-pieChart"
+          }`}
+        >
+          <h5>
+            TODAY'S INCOME= &#8358;
+            {todayTotalPrice}
+          </h5>
         </div>
-        <div className={`records ${theme === 'light' ? 'light-pieChart' : 'dark-pieChart'}`}>
-          <h5>OVERALL INCOME = &#8358;{items.reduce((acc, item) => acc + item.price, 0)}</h5>
+        <div
+          className={`records ${
+            theme === "light" ? "light-pieChart" : "dark-pieChart"
+          }`}
+        >
+          <h5>
+            OVERALL INCOME = &#8358;
+            {overallTotalPrice}
+          </h5>
         </div>
-        <div className={`records ${theme === 'light' ? 'light-pieChart' : 'dark-pieChart'}`}>
-          <h5>EXPENSES = 0</h5> 
+        <div
+          className={`records ${
+            theme === "light" ? "light-pieChart" : "dark-pieChart"
+          }`}
+        >
+          <h5>EXPENSES = 0</h5>
         </div>
       </div>
-      
+
       <div className="asideContents">
-        <div className={`Profits table-responsive ${theme === 'light' ? 'light-pieChart' : 'dark-pieChart'}`}>
-          <table className={`table table-sm ${theme === 'light' ? 'table-light' : 'table-dark'}`}>
+        <div
+          className={`Profits table-responsive ${
+            theme === "light" ? "light-pieChart" : "dark-pieChart"
+          }`}
+        >
+          <table
+            className={`table table-sm ${
+              theme === "light" ? "table-light" : "table-dark"
+            }`}
+          >
             <thead>
               <tr>
                 <th>S/N</th>
                 <th>Service Name</th>
                 <th>Price</th>
-                <th>Date</th> {/* New column for the date */} 
+                <th>Date</th> {/* New column for the date */}
               </tr>
             </thead>
             <tbody>
-              {todayItems.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>&#8358;{item.price}</td>
-                  <td>{formatDate(item.createdAt)}</td>
-                </tr>
-              ))}
+              {todayItems.map((entry, entryIndex) =>
+                entry.items.map((item, itemIndex) => (
+                  <tr key={`${entryIndex}-${itemIndex}`}>
+                    <td>
+                      {entryIndex + 1}.{itemIndex + 1}
+                    </td>
+                    <td>{item.name}</td>
+                    <td>&#8358;{item.price}</td>
+                    <td>{formatDate(entry.createdAt)}</td>
+                  </tr>
+                ))
+              )}
 
               {/* Display the total price for today */}
               <tr>
-                <td colSpan="2"><strong>Today's Total</strong></td>
                 <td colSpan="2">
-                  <strong>&#8358;{todayItems.reduce((acc, item) => acc + item.price, 0)}</strong>
+                  <strong>Today's Total</strong>
+                </td>
+                <td colSpan="2">
+                  <strong>
+                    &#8358;
+                    {todayTotalPrice}
+                  </strong>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      
+
       <div className="footer">
-        <div className={`pieChart ${theme === 'light' ? 'light-pieChart' : 'dark-pieChart'}`}>
+        <div
+          className={`pieChart ${
+            theme === "light" ? "light-pieChart" : "dark-pieChart"
+          }`}
+        >
           <Pie data={data} options={options} />
         </div>
 
-        <div className={`toDo ${theme === 'light' ? 'light-pieChart' : 'dark-pieChart'}`}>
-          <header><h4>To-Do List</h4></header>
-          <form className='form-container'  onSubmit={Submit}>
-
-          <input type="text" placeholder='Add your task' onChange={(e)=>setTaskName(e.target.value)} />
-          <button>Add</button>
-
+        <div
+          className={`toDo ${
+            theme === "light" ? "light-pieChart" : "dark-pieChart"
+          }`}
+        >
+          <header>
+            <h4>To-Do List</h4>
+          </header>
+          <form className="form-container" onSubmit={Submit}>
+            <input
+              type="text"
+              placeholder="Add your task"
+              onChange={(e) => setTaskName(e.target.value)}
+            />
+            <button>Add</button>
           </form>
-          {
-        tasks.map((tasks, index) => (        
-          <div className="text-container">
-            <h4>{tasks.taskName}</h4>
-            <h4>{tasks.date.split('T')[0]}</h4>   
-            
-              <h4 className='icon'><FaRegEdit className="x-icon" id='edit' /></h4>
-              <h4 className='icon' onClick={() => handleDelete(tasks._id)}>
-              <FaTimes className="x-icon" />
-            </h4>            
-          </div>
-        ))
-        }
-          </div>
+          {tasks.map((tasks, index) => (
+            <div className="text-container">
+              <h4>{tasks.taskName}</h4>
+              <h4>{tasks.date.split("T")[0]}</h4>
 
+              <h4 className="icon">
+                <FaRegEdit className="x-icon" id="edit" />
+              </h4>
+              <h4 className="icon" onClick={() => handleDelete(tasks._id)}>
+                <FaTimes className="x-icon" />
+              </h4>
+            </div>
+          ))}
         </div>
       </div>
+    </div>
   );
 };
 
