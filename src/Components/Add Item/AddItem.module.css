@@ -24,6 +24,7 @@
   border: none;
   outline-color: gray;
   text-transform: capitalize;
+  width: 100%;
 }
 
 .btn {
@@ -54,10 +55,10 @@
     padding: 15px; /* reduce padding on small screens */
     margin-left: 7rem;
   }
-  .form{
+  /* .form{
     margin-left: 5rem;
 
-  }
+  } */
   .input {
     padding: 8px; /* reduce input padding on small screens */
   }
@@ -76,3 +77,51 @@
   /* no changes needed, as the default styles are already suitable for large screens */
 }
 
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.tableContainer {
+  margin-left: -20rem;
+  width: 40%;
+  margin-top: 5rem;
+}
+
+.tableHeader {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.table {
+  width: 80%;
+  border-collapse: collapse;
+  /* background-color: white; */
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.tableContainer .btn{
+  width: 80%;
+  margin-top: 7px;
+}
+
+.table th {
+  /* background-color: #f2f2f2; */
+  font-weight: bold;
+}
+
+/* .table tr:nth-child(even) {
+  background-color: #f9f9f9;
+} */
+
+.table tr:hover {
+  background-color: #f1f1f1;
+  color: black;
+}
