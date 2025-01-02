@@ -17,7 +17,7 @@ const MainContent = ({ theme }) => {
   const fetchItems = (query = "") => {
     const url = query
       ? `https://cafe-working-server.vercel.app/search?q=${query}`
-      : "http://localhost:4000/";
+      : "https://cafe-working-server.vercel.app/";
     axios
       .get(url)
       .then((result) => {
@@ -160,7 +160,9 @@ const MainContent = ({ theme }) => {
                             </Link>
                             <FaTrash
                               className={styles.icon}
+                              onClick={() =>
                                 handleDelete(entryIndex, entry._id)
+                              }
                             />
                           </div>
                         </td>
