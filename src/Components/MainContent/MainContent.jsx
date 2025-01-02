@@ -155,12 +155,12 @@ const MainContent = ({ theme }) => {
                         <td>{formatDate(entry.date)}</td>
                         <td>
                           <div className={styles.actions}>
-                            <Link to={`/receipt/${item._id}`}>
+                            <Link to={`/receipt/${entry._id}`}>
                               <FaReceipt className={styles.edit} />
                             </Link>
                             <FaTrash
                               className={styles.icon}
-                              onClick={() => handleDelete(entryIndex, item._id)}
+                                handleDelete(entryIndex, entry._id)
                             />
                           </div>
                         </td>
