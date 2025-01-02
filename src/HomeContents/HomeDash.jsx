@@ -16,8 +16,8 @@ const HomeDash = ({ theme }) => {
 
   const fetchItems = (query = "") => {
     const url = query
-      ? `https://cafe-working-server.vercel.app/search?q=${query}`
-      : "https://cafe-working-server.vercel.app/";
+      ? `http://localhost:4000/search?q=${query}`
+      : "http://localhost:4000/";
     console.log("Fetching items from URL:", url);
     axios
       .get(url)
@@ -55,6 +55,18 @@ const HomeDash = ({ theme }) => {
   };
 
   const groupedItems = groupByDay(items);
+
+  const computeTotal = (dayItems) => {
+    return dayItems.reduce(
+      (total, entry) =>
+        total +
+        entry.items.reduce(
+          (subTotal, item) => subTotal + item.price * item.quantity,
+          0
+        ),
+      0
+    );
+  };
 
   return (
     <div
@@ -130,13 +142,8 @@ const HomeDash = ({ theme }) => {
                       <strong>Daily Total</strong>
                     </td>
                     <td colSpan="3">
-                      <strong>
-                        &#8358;
-                        {groupedItems[date].reduce(
-                          (acc, item) => acc + item.price,
-                          0
-                        )}
-                      </strong>
+                    <strong>&#8358;{computeTotal(groupedItems[date])}</strong>
+
                     </td>
                   </tr>
                 </React.Fragment>
@@ -149,8 +156,16 @@ const HomeDash = ({ theme }) => {
                   </td>
                   <td colSpan="3">
                     <strong>
-                      &#8358;{items.reduce((acc, item) => acc + item.price, 0)}
-                    </strong>
+                    {items.reduce(
+                        (overallTotal, entry) =>
+                          overallTotal +
+                          entry.items.reduce(
+                            (subTotal, item) =>
+                              subTotal + item.price * item.quantity,
+                            0
+                          ),
+                        0
+                      )}                    </strong>
                   </td>
                 </tr>
               )}
