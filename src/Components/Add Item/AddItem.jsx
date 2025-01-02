@@ -21,7 +21,7 @@ const AddItem = ({ theme }) => {
   // Fetch selectable items from the backend
   useEffect(() => {
     axios
-      .get("http://localhost:4000/selectable-items")
+      .get("https://cafe-working-server.vercel.app/selectable-items")
       .then((response) => setSelectableItems(response.data))
       .catch((error) =>
         console.error("Error fetching selectable items:", error)
@@ -85,7 +85,7 @@ const AddItem = ({ theme }) => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:4000/addItem", {
+      const response = await axios.post("https://cafe-working-server.vercel.app/addItem", {
         items: addedItems,
         customer,
         comment,
