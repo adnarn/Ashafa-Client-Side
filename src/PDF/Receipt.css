@@ -1,4 +1,4 @@
-./* styles.css */
+/* styles.css */
 .receipt {
     width: 300px;
     border: 1px solid #ccc;
@@ -19,7 +19,7 @@
     max-width: 100px;
     height: 3rem;
     margin-bottom: -8px;
-    margin-top: -58px;
+    margin-top: -8px;
     border-radius: 10px;
   }
   
@@ -78,67 +78,3 @@
   .starr{
     margin-top: -12px;
   }
-/* Print-Specific Styles */
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  .receipt, .receipt * {
-    visibility: visible;
-  }
-  .receipt {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 90%;
-    height: 70%;
-    margin: 0;
-    padding: 12px;
-    font-size: 11pt;
-    line-height: 14pt;
-  }
-  .print-controls {
-    display: none;
-  }
-  .receipt-header {
-    margin-bottom: 20px;
-    margin-top: 20px;
-  }
-  .company-logo {
-    max-width: 100px;
-    height: auto;
-  }
-  .receipt-body table {
-    width: 100%;
-    margin-left: 8rem;
-  }
-  .receipt-body td {
-    padding: 5px 0;
-  }
-  .total {
-    margin-top: 20px;
-  }
-  .receipt-footer {
-    margin-top: 30px;
-  }
-}
-
-/* Styles for print button */
-.print-controls {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: #45a049;
-}
