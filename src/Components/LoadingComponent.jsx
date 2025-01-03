@@ -1,18 +1,17 @@
-  const fetchItems = (query = "") => {
-    setLoading(true); // Show loading spinner
-    const url = query
-      ? `http://localhost:4000/search?q=${query}`
-      : "http://localhost:4000/";
-    axios
-      .get(url)
-      .then((result) => {
-        const data = Array.isArray(result.data) ? result.data : [];
-        setItems(data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false)); // Hide spinner after fetch
-  };
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-  if (loading) {
-    return <LoadingComponent message="Fetching data, please wait..." />;
-  }
+const LoadingComponent = ({ message = "Loading..." }) => {
+  return (
+    <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+      <div className="text-center">
+        <div className="spinner-border text-gray-200" role="status">
+          <span className="sr-only"></span>
+        </div>
+        <div className="mt-2">{message}</div>
+      </div>
+    </div>
+  );
+};
+
+export default LoadingComponent;
