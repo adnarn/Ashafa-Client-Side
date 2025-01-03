@@ -4,9 +4,12 @@ import styles from "./HomeDash.module.css";
 import { Link } from "react-router-dom";
 import SearchBar from "../Components/SearchBar/SearchBar";
 import { FaPlusCircle } from "react-icons/fa";
+import LoadingComponent from "../Components/loadingComponent";
 
 const HomeDash = ({ theme }) => {
   const role = localStorage.getItem("role");
+  const [loading, setLoading] = useState(true); // Add loading state
+
 
   const [items, setItems] = useState([]);
 
@@ -15,9 +18,11 @@ const HomeDash = ({ theme }) => {
   }, []);
 
   const fetchItems = (query = "") => {
+    setLoading(true); // Show loading spinner
+
     const url = query
-      ? `http://localhost:4000/search?q=${query}`
-      : "http://localhost:4000/";
+      ? `https://cafe-working-server.vercel.app/search?q=${query}`
+      : "https://cafe-working-server.vercel.app/";
     console.log("Fetching items from URL:", url);
     axios
       .get(url)
@@ -28,8 +33,13 @@ const HomeDash = ({ theme }) => {
       .catch((err) => {
         console.error("Error fetching items:", err);
         // Optionally, set an error state to display a message to the user
-      });
+      })
+      .finally(() => setLoading(false)); // Hide spinner after fetch
   };
+
+  if (loading) {
+    return <LoadingComponent message="Fetching data, please wait..." />;
+  }
 
   const handleSearch = (searchQuery) => {
     console.log("Searching items with query:", searchQuery);
