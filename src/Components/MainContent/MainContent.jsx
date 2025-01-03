@@ -5,27 +5,35 @@ import { Link } from "react-router-dom";
 import { FaPlusCircle, FaReceipt, FaTrash } from "react-icons/fa";
 import SearchBar from "../SearchBar/SearchBar";
 import swal from "sweetalert";
+import LoadingComponent from "../loadingComponent";
 
 const MainContent = ({ theme }) => {
   const [items, setItems] = useState([]);
   const role = localStorage.getItem("role");
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     fetchItems(); // Initial fetch of all items
   }, []);
 
   const fetchItems = (query = "") => {
+    setLoading(true); // Show loading spinner
     const url = query
       ? `https://cafe-working-server.vercel.app/search?q=${query}`
       : "https://cafe-working-server.vercel.app/";
     axios
       .get(url)
       .then((result) => {
-        const data = Array.isArray(result.data) ? result.data : []; // Ensure it's an array
+        const data = Array.isArray(result.data) ? result.data : [];
         setItems(data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false)); // Hide spinner after fetch
   };
+
+  if (loading) {
+    return <LoadingComponent message="Fetching data, please wait..." />;
+  }
 
   const handleSearch = (searchQuery) => {
     fetchItems(searchQuery);
