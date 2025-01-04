@@ -24,7 +24,7 @@ const Profile = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:4000/api/get-profile', {
+        const response = await axios.get('https://cafe-working-server.vercel.app/api/get-profile', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -58,7 +58,7 @@ const Profile = () => {
 
     try {
       const response = await axios.put(
-        'http://localhost:4000/api/update-profile',
+        'https://cafe-working-server.vercel.app/api/update-profile',
         { name, email, password },
         {
           headers: {
