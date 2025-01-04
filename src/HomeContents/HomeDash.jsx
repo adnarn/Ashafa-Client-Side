@@ -1,190 +1,153 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import styles from "./HomeDash.module.css";
+import React from "react";
 import { Link } from "react-router-dom";
-import SearchBar from "../Components/SearchBar/SearchBar";
-import { FaPlusCircle } from "react-icons/fa";
-import LoadingComponent from "../Components/loadingComponent";
+import { FaPlusCircle, FaSearch, FaBook, FaUser } from "react-icons/fa";
 
 const HomeDash = ({ theme }) => {
   const role = localStorage.getItem("role");
-  const [loading, setLoading] = useState(true); // Add loading state
-
-
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    fetchItems(); // Initial fetch of all items
-  }, []);
-
-  const fetchItems = (query = "") => {
-    setLoading(true); // Show loading spinner
-
-    const url = query
-      ? `https://cafe-working-server.vercel.app/search?q=${query}`
-      : "https://cafe-working-server.vercel.app/";
-    console.log("Fetching items from URL:", url);
-    axios
-      .get(url)
-      .then((result) => {
-        console.log("Items fetched successfully:", result.data);
-        setItems(result.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching items:", err);
-        // Optionally, set an error state to display a message to the user
-      })
-      .finally(() => setLoading(false)); // Hide spinner after fetch
-  };
-
-  if (loading) {
-    return <LoadingComponent message="Fetching data, please wait..." />;
-  }
-
-  const handleSearch = (searchQuery) => {
-    console.log("Searching items with query:", searchQuery);
-    fetchItems(searchQuery);
-  };
-
-  // Helper function to format date
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString();
-  };
-
-  // Group items by day
-  const groupByDay = (items) => {
-    return items.reduce((groups, item) => {
-      const date = formatDate(item.date);
-      if (!groups[date]) {
-        groups[date] = [];
-      }
-      groups[date].push(item);
-      return groups;
-    }, {});
-  };
-
-  const groupedItems = groupByDay(items);
-
-  const computeTotal = (dayItems) => {
-    return dayItems.reduce(
-      (total, entry) =>
-        total +
-        entry.items.reduce(
-          (subTotal, item) => subTotal + item.price * item.quantity,
-          0
-        ),
-      0
-    );
-  };
 
   return (
+    <>
+    {role==='admin'?
+   (   <div className='user-dashboard'>
     <div
-      className={`${styles.mainContent} ${
-        theme === "light" ? "light-theme" : "dark-theme"
+ className={`container py-4 ${
+   theme === "light" ? "bg-light" : "bg-dark text-light"
+ }`}
+>
+ <h2 className="text-center mb-4">Admin Dashboard</h2>
+ <div className="row g-4">
+   {/* Add Record Card */}
+   <div className="col-12 col-sm-6 col-lg-3">
+     <div className="card h-100 text-center shadow">
+       <div className="card-body">
+         <FaPlusCircle className="mb-3 text-primary" size={50} />
+         <h5 className="card-title">Add Record</h5>
+         <p className="card-text">Add a new record to the system.</p>
+         <Link to="/add" className="btn btn-primary">
+           Add Record
+         </Link>
+       </div>
+     </div>
+   </div>
+
+   {/* Search Receipt Card */}
+   <div className="col-12 col-sm-6 col-lg-3">
+     <div className="card h-100 text-center shadow">
+       <div className="card-body">
+         <FaSearch className="mb-3 text-success" size={50} />
+         <h5 className="card-title">Search Receipt</h5>
+         <p className="card-text">Search for receipts by keyword.</p>
+         <Link to="/search" className="btn btn-success">
+           Search Receipt
+         </Link>
+       </div>
+     </div>
+   </div>
+
+   {/* View Records Card */}
+   <div className="col-12 col-sm-6 col-lg-3">
+     <div className="card h-100 text-center shadow">
+       <div className="card-body">
+         <FaBook className="mb-3 text-info" size={50} />
+         <h5 className="card-title">View Records</h5>
+         <p className="card-text">View all available records.</p>
+         <Link to="/clipBoard" className="btn btn-info">
+           View Records
+         </Link>
+       </div>
+     </div>
+   </div>
+
+   {/* User Profile Card */}
+   <div className="col-12 col-sm-6 col-lg-3">
+     <div className="card h-100 text-center shadow">
+       <div className="card-body">
+         <FaUser className="mb-3 text-warning" size={50} />
+         <h5 className="card-title">User Profile</h5>
+         <p className="card-text">View and edit your profile details.</p>
+         <Link to="/profile" className="btn btn-warning">
+           User Profile
+         </Link>
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
+
+ </div>
+ ):
+    (
+      <div className='user-dashboard'>
+         <div
+      className={`container py-4 ${
+        theme === "light" ? "bg-light" : "bg-dark text-light"
       }`}
     >
-      <main className={theme === "light" ? "light-theme" : "dark-theme"}>
-        <div className={styles.header}>
-          <h2 className={styles.headers}> Dashboard</h2>
-          <SearchBar onSearch={handleSearch} />{" "}
-          {/* Add the SearchBar component */}
-          <Link to="/add">
-            <button className={styles.button}>
-              <FaPlusCircle className={styles.icons} /> Add Item
-            </button>
-          </Link>
+      <h2 className="text-center mb-4">User Dashboard</h2>
+      <div className="row g-4">
+        {/* Add Record Card */}
+        <div className="col-12 col-sm-6 col-lg-3">
+          <div className="card h-100 text-center shadow">
+            <div className="card-body">
+              <FaPlusCircle className="mb-3 text-primary" size={50} />
+              <h5 className="card-title">Add Record</h5>
+              <p className="card-text">Add a new record to the system.</p>
+              <Link to="/add" className="btn btn-primary">
+                Add Record
+              </Link>
+            </div>
+          </div>
         </div>
 
-        <div className="table-responsive">
-          <table
-            className={`table table-sm ${
-              theme === "light" ? "table-light" : "table-dark"
-            }`}
-          >
-            <thead>
-              <tr>
-                <th>S/N</th>
-                <th>Service Name</th>
-                <th>Price</th>
-                <th>Time</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(groupedItems).map((date, dateIndex) => (
-                <React.Fragment key={dateIndex}>
-                  {/* Display the date */}
-                  <tr>
-                    <td
-                      colSpan="5"
-                      style={{ fontWeight: "bold", padding: "10px 0" }}
-                    >
-                      {date}
-                    </td>
-                  </tr>
-
-                  {/* Display items for that date */}
-                  {groupedItems[date].map((entry, entryIndex) =>
-                    entry.items.map((item, itemIndex) => (
-                      <tr key={item._id}>
-                        <td>
-                          {entryIndex + 1}.{itemIndex + 1}
-                        </td>
-                        <td>{item.name}</td>
-                        <td>&#8358;{item.price}</td>
-                        <td>
-                          {new Date(entry.date).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            second: "2-digit",
-                            hour12: true,
-                          })}
-                        </td>
-                        <td>{formatDate(entry.date)}</td>
-                      </tr>
-                    ))
-                  )}
-
-                  {/* Display the total price for the day */}
-                  <tr>
-                    <td colSpan="2">
-                      <strong>Daily Total</strong>
-                    </td>
-                    <td colSpan="3">
-                    <strong>&#8358;{computeTotal(groupedItems[date])}</strong>
-
-                    </td>
-                  </tr>
-                </React.Fragment>
-              ))}
-
-              {role === "admin" && (
-                <tr>
-                  <td colSpan="2">
-                    <strong>Overall Total</strong>
-                  </td>
-                  <td colSpan="3">
-                    <strong>
-                    {items.reduce(
-                        (overallTotal, entry) =>
-                          overallTotal +
-                          entry.items.reduce(
-                            (subTotal, item) =>
-                              subTotal + item.price * item.quantity,
-                            0
-                          ),
-                        0
-                      )}                    </strong>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+        {/* Search Receipt Card */}
+        <div className="col-12 col-sm-6 col-lg-3">
+          <div className="card h-100 text-center shadow">
+            <div className="card-body">
+              <FaSearch className="mb-3 text-success" size={50} />
+              <h5 className="card-title">Search Receipt</h5>
+              <p className="card-text">Search for receipts by keyword.</p>
+              <Link to="/search" className="btn btn-success">
+                Search Receipt
+              </Link>
+            </div>
+          </div>
         </div>
-      </main>
+
+        {/* View Records Card */}
+        <div className="col-12 col-sm-6 col-lg-3">
+          <div className="card h-100 text-center shadow">
+            <div className="card-body">
+              <FaBook className="mb-3 text-info" size={50} />
+              <h5 className="card-title">View Records</h5>
+              <p className="card-text">View all available records.</p>
+              <Link to="/clipBoard" className="btn btn-info">
+                View Records
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* User Profile Card */}
+        <div className="col-12 col-sm-6 col-lg-3">
+          <div className="card h-100 text-center shadow">
+            <div className="card-body">
+              <FaUser className="mb-3 text-warning" size={50} />
+              <h5 className="card-title">User Profile</h5>
+              <p className="card-text">View and edit your profile details.</p>
+              <Link to="/profile" className="btn btn-warning">
+                User Profile
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  );
+
+      </div>
+    )
+ }
+ </>
+ );
 };
 
 export default HomeDash;
