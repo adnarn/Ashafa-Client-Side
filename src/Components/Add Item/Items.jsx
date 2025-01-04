@@ -11,7 +11,7 @@ const Items = ({theme}) => {
 
   // Fetch items from the backend when the component mounts
   useEffect(() => {
-    axios.get("https://ashafa-server.onrender.com/selectable-items")
+    axios.get("https://cafe-working-server.vercel.app/selectable-items")
       .then(response => {
         setItems(response.data);
       })
@@ -30,7 +30,7 @@ const Items = ({theme}) => {
     }).then((willDelete) => {
       if (willDelete) {
 
-        axios.delete(`https://ashafa-server.onrender.com/delete-selectable-items/${id}`)
+        axios.delete(`https://cafe-working-server.vercel.app/delete-selectable-items/${id}`)
 
           .then(res => {
             const updatedItems = items.filter((_, i) => i !== index);
