@@ -15,7 +15,7 @@ const AddSelectableItem = ({theme}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("https://ashafa-server.onrender.com/selectable-items", { itemName, price })
+    axios.post("https://cafe-working-server.vercel.app/selectable-items", { itemName, price })
       .then(result => {
         console.log(result);
       setItemName('');   
