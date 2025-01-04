@@ -50,7 +50,16 @@
     border: hidden;
   }
   
-
+  .print-button{
+    border: none;
+    border-radius: 10px;
+    background: rgb(18, 166, 18);
+    color: white;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
   
   .total {
     text-align: center;
@@ -75,16 +84,6 @@
   .star{
     margin-bottom: -7px;
   }
-
-.print-button{
-    border: none;
-    border-radius: 10px;
-    background: rgb(18, 166, 18);
-    color: white;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-}
   .starr{
     margin-top: -12px;
   }
