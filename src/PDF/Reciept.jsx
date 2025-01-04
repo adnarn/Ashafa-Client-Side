@@ -20,7 +20,7 @@ const Receipt = () => {
   const [isReceiptVisible, setIsReceiptVisible] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/getItem/${id}`)
+    axios.get(`https://cafe-working-server.vercel.app/getItem/${id}`)
       .then(result => {
         console.log('Fetched Data:', result.data);
         setName(result.data.items.map(item => item.name));
