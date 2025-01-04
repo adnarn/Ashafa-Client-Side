@@ -99,9 +99,9 @@ const Receipt = () => {
               <p>Thanks for working with us</p>
             </div>
           </div>
-          <div style={{ marginTop: '20px', textAlign: 'center' }}>
+          <div style={{ marginTop: '20px', textAlign: 'center', alignItems: 'center', margin: 'auto' }} className='button-container' >
             <ReactToPrint
-              trigger={() => <button className='button' style={{ padding: '10px 20px', fontSize: '16px' }}>Print Receipt</button>}
+              trigger={() => <button className='print-button' style={{ padding: '10px 20px', fontSize: '16px' }}>Print Receipt</button>}
               content={() => receiptRef.current}
               documentTitle={'INVOICE'}
             />
