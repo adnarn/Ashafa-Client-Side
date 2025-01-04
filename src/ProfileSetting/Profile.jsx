@@ -10,31 +10,38 @@ const Profile = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const role = localStorage.getItem('role');
+  const role = localStorage.getItem('role'); // Assuming role is stored in localStorage
   const navigate = useNavigate();
 
+  // Fetch user details on component mount
   useEffect(() => {
-    // Redirect if not admin
-    if (role !== 'admin') {
-      toast.error('Unauthorized access');
-      navigate('/');
-    }
+    const fetchUserDetails = async () => {
+      const token = localStorage.getItem('token'); // Get token from localStorage
+      if (!token) {
+        toast.error('You are not logged in');
+        navigate('/login'); // Redirect to login if no token
+        return;
+      }
 
-    // Fetch admin profile data
-    axios.get('https://ashafa-server.onrender.com/api/admin/profile')
-      .then(response => {
+      try {
+        const response = await axios.get('http://localhost:4000/api/get-profile', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const { name, email } = response.data;
         setName(name);
         setEmail(email);
-      })
-      .catch(error => {
-        toast.error('Failed to fetch profile');
-        console.error(error);
-        
-      });
-  }, [role, navigate]);
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+        toast.error('Failed to fetch user details');
+      }
+    };
 
-  const handleSubmit = (e) => {
+    fetchUserDetails();
+  }, [navigate]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -42,24 +49,34 @@ const Profile = () => {
       return;
     }
 
-    // Update profile API call
-    axios.put('https://ashafa-server.onrender.com/api/admin/profile', { name, email, password })
-      .then(response => {
-        toast.success('Profile updated successfully');
-        setPassword('');
-        setConfirmPassword('');
-      })
-      .catch(error => {
-        toast.error('Failed to update profile');
-        console.error(error);
-        setName('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-      });
-  };
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('You are not logged in');
+      navigate('/login');
+      return;
+    }
 
-  if (role !== 'admin') return null; // Return nothing if not admin
+    try {
+      const response = await axios.put(
+        'http://localhost:4000/api/update-profile',
+        { name, email, password },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success('Profile updated successfully');
+        setPassword('')
+        setConfirmPassword('')
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      toast.error('Failed to update profile');
+    }
+  };
 
   return (
     <div>
