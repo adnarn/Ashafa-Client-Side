@@ -1,11 +1,11 @@
-
 import React, { useState, useEffect } from "react";
 import "./AddItem.css";
 import axios from "axios";
 import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./AddItem.module.css";
-import { FaTrash } from "react-icons/fa";
+import { FaPlusCircle, FaTrash } from "react-icons/fa";
+
 
 const AddItem = ({ theme }) => {
   const [name, setName] = useState("");
@@ -21,7 +21,7 @@ const AddItem = ({ theme }) => {
   // Fetch selectable items from the backend
   useEffect(() => {
     axios
-      .get("https://cafe-working-server.vercel.app/selectable-items")
+      .get("http://localhost:4000/selectable-items")
       .then((response) => setSelectableItems(response.data))
       .catch((error) =>
         console.error("Error fetching selectable items:", error)
@@ -85,7 +85,7 @@ const AddItem = ({ theme }) => {
       return;
     }
     try {
-      const response = await axios.post("https://cafe-working-server.vercel.app/addItem", {
+      const response = await axios.post("http://localhost:4000/addItem", {
         items: addedItems,
         customer,
         comment,
@@ -103,6 +103,14 @@ const AddItem = ({ theme }) => {
 
   return (
     <div className={styles.container}>
+      <div className="button">
+        <Link to="/add-selected-item">
+          <button className={styles.button}>
+            <FaPlusCircle className={styles.icons} />
+                 Edit Item
+          </button>
+        </Link>
+      </div>
       <form
         className={`style.form  ${theme === "light" ? "light-theme" : "dark-theme"}`}
         onSubmit={(e) => e.preventDefault()}
