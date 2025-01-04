@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './Receipt.css';
 import { useParams } from 'react-router-dom';
-import logo from '../assets/ashLogs.jpg';
+import logo from '../assets/logo.jpeg';
 import ReactToPrint from 'react-to-print';
 
 const Receipt = () => {
