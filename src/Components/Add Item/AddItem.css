@@ -19,6 +19,15 @@
     display: flex;
     align-items: center;
 }
+.button{
+  display: flex;
+  flex-direction: center;
+  color: white;
+  text-decoration: none;
+}
+.button a{
+  text-decoration: none;
+}
 
   .header {
     margin-bottom: 20px; /* add some space between header and inputs */
@@ -35,7 +44,7 @@
   .btn {
     width: 100%; /* make the button full-width */
     min-width: 100px;
-    background-color: #4CAF50; /* green background */
+    background-color: #2cec32; /* green background */
     color: #fff; /* white text */
     border: none; /* remove border */
     border-radius: 5px; /* add some rounded corners */
