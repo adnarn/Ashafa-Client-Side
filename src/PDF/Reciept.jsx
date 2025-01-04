@@ -100,7 +100,7 @@ const Receipt = () => {
               <div className='approoved'>{approoved}</div>
             </div>
             <div className="receipt-footer">
-              <p>For more enquiries, visit: <b>dosaclickventures.com.ng</b><br /> Thank you for your patronization</p>
+              <p>For more enquiries, visit: <b>dosaclickventures.com.ng</b><br /> Thank you for your patronizing us</p>
             </div>
           </div>
           <div style={{ marginTop: '20px', textAlign: 'center' }} >
