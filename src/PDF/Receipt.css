@@ -77,10 +77,9 @@
   }
 
 .print-button{
-    margin-top: -22px;
     border: none;
     border-radius: 10px;
-    background: green;
+    background: rgb(18, 166, 18);
     color: white;
     font-weight: 500;
     display: flex;
