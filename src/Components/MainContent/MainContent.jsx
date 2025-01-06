@@ -9,69 +9,39 @@ import LoadingComponent from "../loadingComponent";
 
 const MainContent = ({ theme }) => {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const role = localStorage.getItem("role");
-  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
-    fetchItems(); // Initial fetch of all items
+    fetchItems();
   }, []);
 
-  const fetchItems = (query = "") => {
-    setLoading(true); // Show loading spinner
+  const fetchItems = async (query = "") => {
+    setLoading(true);
     const url = query
-      ? `https://cafe-working-server.vercel.app/search?q=${query}`
-      : "https://cafe-working-server.vercel.app/";
-    axios
-      .get(url)
-      .then((result) => {
-        const data = Array.isArray(result.data) ? result.data : [];
-        setItems(data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false)); // Hide spinner after fetch
-  };
+      ? `http://localhost:4000/search?q=${query}`
+      : "http://localhost:4000/";
 
-  if (loading) {
-    return <LoadingComponent message="Fetching data, please wait..." />;
-  }
-
-  const handleSearch = (searchQuery) => {
-    fetchItems(searchQuery);
-  };
-
-  const handleDelete = (index, id) => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this item!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        axios
-          .delete(`https://cafe-working-server.vercel.app/deleteItem/${id}`)
-          .then(() => {
-            const updatedItems = items.filter((_, i) => i !== index);
-            setItems(updatedItems);
-            swal("Your item has been deleted!", {
-              icon: "success",
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-            swal("Error! Something went wrong while deleting.", {
-              icon: "error",
-            });
-          });
-      } else {
-        swal("Your item is safe!");
-      }
-    });
+    try {
+      const response = await axios.get(url);
+      const data = Array.isArray(response.data) ? response.data : [];
+      setItems(data);
+    } catch (error) {
+      console.error("Error fetching items:", error);
+      swal("Error", "Failed to fetch items. Please try again later.", "error");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
+  };
+
+  const isToday = (dateString) => {
+    const today = new Date().toLocaleDateString();
+    return formatDate(dateString) === today;
   };
 
   const groupByDay = (items) => {
@@ -90,14 +60,21 @@ const MainContent = ({ theme }) => {
       (total, entry) =>
         total +
         entry.items.reduce(
-          (subTotal, item) => subTotal + item.price * item.quantity,
+          (subTotal, item) => subTotal + item.price,
           0
         ),
       0
     );
   };
 
-  const groupedItems = groupByDay(items);
+  // Filter items based on role
+  const filteredItems = role === "admin" ? items : items.filter((item) => isToday(item.date));
+
+  const groupedItems = groupByDay(filteredItems);
+
+  if (loading) {
+    return <LoadingComponent message="Fetching data, please wait..." />;
+  }
 
   return (
     <div
@@ -107,8 +84,8 @@ const MainContent = ({ theme }) => {
     >
       <main>
         <div className={styles.header}>
-          <h2 className={styles.headers}> Dashboard</h2>
-          <SearchBar onSearch={handleSearch} />
+          <h2 className={styles.headers}>Dashboard</h2>
+          <SearchBar onSearch={fetchItems} />
           <Link to="/add">
             <button className={styles.button}>
               <FaPlusCircle className={styles.icons} /> Add Item
@@ -124,11 +101,13 @@ const MainContent = ({ theme }) => {
           >
             <thead>
               <tr>
-                <th>S/N</th>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Comment</th>
+                <th>Payment</th>
                 <th>Service Name</th>
                 <th>Price</th>
                 <th>Quantity</th>
-                <th>Total</th>
                 <th>Time</th>
                 <th>Date</th>
                 <th>Action</th>
@@ -137,21 +116,24 @@ const MainContent = ({ theme }) => {
             <tbody>
               {Object.keys(groupedItems).map((date, dateIndex) => (
                 <React.Fragment key={dateIndex}>
+                  {/* Display Date as a Header */}
                   <tr>
-                    <td colSpan="8" style={{ fontWeight: "bold" }}>
+                    <td colSpan="11" style={{ fontWeight: "bold" }}>
                       {date}
                     </td>
                   </tr>
+
+                  {/* Display Entries for Each Date */}
                   {groupedItems[date].map((entry, entryIndex) =>
                     entry.items.map((item, itemIndex) => (
-                      <tr key={`${entryIndex}-${itemIndex}`}>
-                        <td>
-                          {entryIndex + 1}.{itemIndex + 1}
-                        </td>
+                      <tr key={`${entry._id}-${itemIndex}`}>
+                        <td>{entry.referenceId}</td>
+                        <td>{entry.customer}</td>
+                        <td>{entry.comment}</td>
+                        <td>{entry.payment}</td>
                         <td>{item.name}</td>
                         <td>&#8358;{item.price}</td>
                         <td>{item.quantity}</td>
-                        <td>&#8358;{item.price * item.quantity}</td>
                         <td>
                           {new Date(entry.date).toLocaleTimeString([], {
                             hour: "2-digit",
@@ -166,33 +148,37 @@ const MainContent = ({ theme }) => {
                             <Link to={`/receipt/${entry._id}`}>
                               <FaReceipt className={styles.edit} />
                             </Link>
-                            <FaTrash
-                              className={styles.icon}
-                              onClick={() =>
-                                handleDelete(entryIndex, entry._id)
-                              }
-                            />
+                            {role === "admin" && (
+                              <FaTrash
+                                className={styles.icon}
+                                onClick={() => handleDelete(entry._id)}
+                              />
+                            )}
                           </div>
                         </td>
                       </tr>
                     ))
                   )}
+
+                  {/* Daily Total for Each Group */}
                   <tr>
-                    <td colSpan="4">
+                    <td colSpan="6">
                       <strong>Daily Total</strong>
                     </td>
-                    <td colSpan="4">
+                    <td colSpan="5">
                       <strong>&#8358;{computeTotal(groupedItems[date])}</strong>
                     </td>
                   </tr>
                 </React.Fragment>
               ))}
+
+              {/* Overall Total for Admin */}
               {role === "admin" && (
                 <tr>
-                  <td colSpan="4">
+                  <td colSpan="6">
                     <strong>Overall Total</strong>
                   </td>
-                  <td colSpan="4">
+                  <td colSpan="5">
                     <strong>
                       &#8358;
                       {items.reduce(
@@ -200,7 +186,7 @@ const MainContent = ({ theme }) => {
                           overallTotal +
                           entry.items.reduce(
                             (subTotal, item) =>
-                              subTotal + item.price * item.quantity,
+                              subTotal + item.price,
                             0
                           ),
                         0
