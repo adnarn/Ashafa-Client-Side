@@ -1,106 +1,95 @@
-/* Default styles */
-.form {
-    max-width: 400px; /* adjust the max width to your liking */
-    margin: 40px auto; /* center the form */
-    padding: 20px;
-    background-color: #f9f9f9; /* light gray background */
-    border: 1px solid #ccc; /* light gray border */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
-    align-items: center;
-  }
-form {
-    max-width: 400px; /* adjust the max width to your liking */
-    margin: 40px auto; /* center the form */
-    padding: 20px;
-    background-color: #f9f9f9; /* light gray background */
-    border: 1px solid #ccc; /* light gray border */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
-    align-items: center;
-    text-align: center;
-  }
-  
-.button button{
-    margin-left: 6rem;
-    margin-right: -32rem ;
-    border: none;
-    border-radius: 10px;
-    background: rgb(175, 8, 175);
-    color: white;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-}
-.button{
-  display: flex;
-  flex-direction: center;
-  color: white;
-  text-decoration: none;
-}
-.button a{
-  text-decoration: none;
-}
+import React, { useState } from 'react';
+import styles from './AddItem.module.css';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-  .header {
-    margin-bottom: 20px; /* add some space between header and inputs */
-  }
+const AddExpense = ({ theme }) => {
+  const [itemName, setItemName] = useState('');
+  const [price, setPrice] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  
-  .input { 
-    width: 100%; /* make inputs full-width */
-    height: 40px; /* adjust the height to your liking */
-    margin-bottom: 20px; /* add some space between inputs */
-    padding: 10px;
-    border: 1px solid #ccc; /* light gray border */
-  }
-  
-  .btn {
-    width: 100%; /* make the button full-width */
-    min-width: 100px;
-    background-color: #2cec32; /* green background */
-    color: #fff; /* white text */
-    border: none; /* remove border */
-    border-radius: 5px; /* add some rounded corners */
-    cursor: pointer; /* change cursor on hover */
-  }
+  // Function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  .button-class{
-    display: flex;
-    justify-content: right;
-    margin: auto;
-    
-  }
+    // Validation
+    if (!itemName || !price) {
+      setError('Please fill in all fields.');
+      return;
+    }
 
-.button-class{
-  display: flex;
-  justify-content: right;
-  margin: auto;
-  
-}
+    // Clear previous messages
+    setError('');
+    setSuccess('');
 
-.ItemContainer{
-  margin-left: 5rem;
-}
+    try {
+      // Send POST request to the backend API
+      const response = await fetch('https://cafe-working-server.vercel.app/api/add-expense', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ itemName, price }),
+      });
 
-/* Media queries */
-/* For small screens (e.g., mobile devices) */
-@media only screen and (max-width: 600px) {
-  .form {
-    margin: 20px auto; /* reduce margin on small screens */
-  }
-  .input {
-    height: 30px; /* reduce input height on small screens */
-  }
-  .btn {
-    height: 30px; /* reduce button height on small screens */
-  }
-}
+      const data = await response.json();
 
-/* For medium screens (e.g., tablets) */
-@media only screen and (min-width: 601px) and (max-width: 900px) {
-  /* no changes needed, as the default styles are already suitable for medium screens */
-}
+      if (response.ok) {
+        toast.success('Expense added successfully!');
+        setItemName('');
+        setPrice('');
+      } else {
+        setError(data.error || 'Failed to add expense.');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again later.');
+    }
+  };
 
-/* For large screens (e.g., desktops) */
-@media only screen and (min-width: 901px) {
-  /* no changes needed, as the default styles are already suitable for large screens */
-}
+  return (
+    <div>
+      <div className="button-class">
+        <Link to="/expenses">
+          <button>Show Expenses</button>
+        </Link>
+      </div>
+
+      <form
+        className={`${styles.form} ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}
+        onSubmit={handleSubmit}
+      >
+        {error && <p className={styles.error}>{error}</p>}
+        {success && <p className={styles.success}>{success}</p>}
+
+        <h3 className={`${styles.header} ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
+          Add Expense
+        </h3>
+        <input
+          type="text"
+          placeholder="Input Service Name"
+          className={styles.input}
+          id="itemName"
+          value={itemName}
+          onChange={(e) => setItemName(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Input Price"
+          className={styles.input}
+          id="Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+        <button
+          type="submit"
+          className={`${styles.btn} ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}
+        >
+          Add
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default AddExpense;
