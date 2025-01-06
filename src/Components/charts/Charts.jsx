@@ -54,7 +54,7 @@ const Charts = ({ theme }) => {
   }, []);
 
   const fetchItems = () => {
-    const url = "http://localhost:4000/";
+    const url = "https://cafe-working-server.vercel.app/";
     axios
       .get(url)
       .then((result) => {
@@ -90,7 +90,7 @@ const Charts = ({ theme }) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:4000/task", { taskName })
+      .post("https://cafe-working-server.vercel.app/task", { taskName })
       .then((result) => {
         console.log(result);
 
@@ -135,7 +135,7 @@ const overallTotalPrice = items.reduce((acc, entry) => {
 useEffect(() => {
   const fetchExpenses = async () => {
     try {
-      const response = await fetch('http://localhost:4000/api/get-expense'); // Adjust the URL if needed
+      const response = await fetch('https://cafe-working-server.vercel.app/api/get-expense'); // Adjust the URL if needed
       const data = await response.json();
 
       if (response.ok) {
