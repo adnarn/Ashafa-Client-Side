@@ -13,7 +13,7 @@ const ExpensesPage = ({ theme }) => {
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/get-expense'); // Adjust the URL if needed
+        const response = await fetch('https://cafe-working-server.vercel.app/api/get-expense'); // Adjust the URL if needed
         const data = await response.json();
 
         if (response.ok) {
@@ -36,7 +36,7 @@ const ExpensesPage = ({ theme }) => {
   const handleDelete = async (index, id) => {
     if (role=='admin' && window.confirm('Are you sure you want to delete this expense?')) {
       try {
-        const response = await fetch(`http://localhost:8000/api/delete-expense/${id}`, {
+        const response = await fetch(`https://cafe-working-server.vercel.app/api/delete-expense/${id}`, {
           method: 'DELETE',
         });
 
