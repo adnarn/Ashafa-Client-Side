@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from "react";
 import "./AddItem.css";
 import axios from "axios";
@@ -13,6 +15,7 @@ const AddItem = ({ theme }) => {
   const [price, setPrice] = useState("");
   const [originalPrice, setOriginalPrice] = useState(""); // Track original price
   const [customer, setCustomer] = useState("");
+  const [discount, setDiscount] = useState("");
   const [comment, setComment] = useState("No Comment");
   const [payment, setPayment] = useState("Cash");
   const [addedItems, setAddedItems] = useState([]); // State to store items
@@ -22,7 +25,7 @@ const AddItem = ({ theme }) => {
   // Fetch selectable items from the backend
   useEffect(() => {
     axios
-      .get("https://cafe-working-server.vercel.app/selectable-items")
+      .get("http://localhost:4000/selectable-items")
       .then((response) => setSelectableItems(response.data))
       .catch((error) =>
         console.error("Error fetching selectable items:", error)
@@ -86,11 +89,12 @@ const AddItem = ({ theme }) => {
       return;
     }
     try {
-      const response = await axios.post("https://cafe-working-server.vercel.app/addItem", {
+      const response = await axios.post("http://localhost:4000/addItem", {
         items: addedItems,
         customer,
         comment,
         payment,
+        discount,
       });
       swal("Success", "Items saved successfully!", "success");
       setAddedItems([]);
@@ -179,6 +183,13 @@ const AddItem = ({ theme }) => {
             </option>
 
         </select>
+        <input
+          type="number"
+          value={discount}
+          onChange={(e) => setDiscount(e.target.value)}
+          placeholder="Discount"
+          className={styles.input}
+        />
 
 
         <textarea
