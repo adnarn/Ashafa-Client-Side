@@ -19,8 +19,8 @@ const MainContent = ({ theme }) => {
   const fetchItems = async (query = "") => {
     setLoading(true);
     const url = query
-      ? `http://localhost:4000/search?q=${query}`
-      : "http://localhost:4000/";
+      ? `https://cafe-working-server.vercel.app/search?q=${query}`
+      : "https://cafe-working-server.vercel.app/";
 
     try {
       const response = await axios.get(url);
