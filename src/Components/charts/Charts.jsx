@@ -12,6 +12,7 @@ import {
   FaPlusCircle,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 ChartJs.register(ArcElement, Legend, Tooltip);
 
@@ -45,13 +46,15 @@ const Charts = ({ theme }) => {
   };
 
   const [items, setItems] = useState([]);
+  const [expense, setExpense] = useState("");
+  const [profit, setProfit] = useState("");
 
   useEffect(() => {
     fetchItems();
   }, []);
 
   const fetchItems = () => {
-    const url = "https://cafe-working-server.vercel.app/";
+    const url = "http://localhost:4000/";
     axios
       .get(url)
       .then((result) => {
@@ -87,13 +90,13 @@ const Charts = ({ theme }) => {
     e.preventDefault();
 
     axios
-      .post("https://cafe-working-server.vercel.app/task", { taskName })
+      .post("http://localhost:4000/task", { taskName })
       .then((result) => {
         console.log(result);
 
         // Fetch the updated tasks after adding a new one
         axios
-          .get("https://ashafa-server.onrender.com/tasks")
+          .get("http://localhost:4000/tasks")
           .then((result) => {
             setTasks(result.data); // Update tasks state
             setTaskName(""); // Clear the input after submission
@@ -105,7 +108,7 @@ const Charts = ({ theme }) => {
 
   const handleDelete = (id) => {
     axios
-      .delete(`https://cafe-working-server.vercel.app/deleteTask/${id}`)
+      .delete(`http://localhost:4000/deleteTask/${id}`)
       .then((res) => {
         console.log(res);
 
@@ -127,6 +130,36 @@ const overallTotalPrice = items.reduce((acc, entry) => {
   return acc + entryTotal;
 }, 0);
 
+
+
+useEffect(() => {
+  const fetchExpenses = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/api/get-expense'); // Adjust the URL if needed
+      const data = await response.json();
+
+      if (response.ok) {
+        // setItems(data);
+        // Calculate the total sum of expenses
+        const totalSum = data.reduce((sum, item) => sum + item.price, 0);
+        setExpense(totalSum);
+      } else {
+        toast.error('Failed to fetch expenses');
+      }
+    } catch (err) {
+      toast.error('An error occurred while fetching expenses');
+    }
+  };
+
+  fetchExpenses();
+}, []);
+
+
+
+useEffect(() => {
+  const calculatedProfit = overallTotalPrice - expense;
+  setProfit(calculatedProfit);
+}, [expense, overallTotalPrice]);
 
   return (
     <div
@@ -161,7 +194,7 @@ const overallTotalPrice = items.reduce((acc, entry) => {
           }`}
         >
           <h5>
-            OVERALL INCOME = &#8358;
+            TOTAL INCOME = &#8358;
             {overallTotalPrice}
           </h5>
         </div>
@@ -170,7 +203,8 @@ const overallTotalPrice = items.reduce((acc, entry) => {
             theme === "light" ? "light-pieChart" : "dark-pieChart"
           }`}
         >
-          <h5>EXPENSES = 0</h5>
+          <h5>EXPENSES = {expense}</h5>
+          <h5>PROFIT =  {profit}</h5>
         </div>
       </div>
 
