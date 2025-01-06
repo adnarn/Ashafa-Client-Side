@@ -3,6 +3,8 @@ import './App.css';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './Components/Home';
 import AddItem from './Components/Add Item/AddItem';
+import Add from './Components/Add Item/Add';
+import AddExpense from './Components/Add Item/AddExpense';
 import MainContent from './Components/MainContent';
 import UpdateItem from './Components/Update';
 import HomeDash from './HomeContents';
@@ -19,6 +21,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AddSelectableItem from './Components/Add Item/AddSelectableItem';
 import Items from './Components/Add Item/Items';
 import UpdateSelectableItem from './Components/Update/UpdateSelectableItem';
+import ExpensesPage from './Components/Add Item/ExpensesPage';
 
 
 function App() {
@@ -62,7 +65,10 @@ function AppContent() {
       <Routes>
         <Route path="/" element={token ? <HomeDash theme={theme} /> : <Login />} />
         <Route path="/clipBoard" element={token ? <MainContent theme={theme} /> : <Login />} />
-        <Route path="/add" element={token ? <AddItem theme={theme} /> : <Login />} />
+        <Route path="/add-item" element={token ? <AddItem theme={theme} /> : <Login />} />
+        <Route path="/expenses" element={token ? <ExpensesPage theme={theme} /> : <Login />} />
+        <Route path="/add" element={token ? <Add theme={theme} /> : <Login />} />
+        <Route path="/add-expense" element={token ? <AddExpense theme={theme} /> : <Login />} />
         <Route path="/add-selected-item" element={token ? <AddSelectableItem theme={theme} /> : <Login />} />
         <Route path="/show-items" element={token ? <Items theme={theme} /> : <Login />} />
         <Route path="/update/:id" element={token ? <UpdateItem theme={theme} /> : <Login />} />
