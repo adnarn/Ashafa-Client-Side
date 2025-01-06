@@ -6,6 +6,17 @@
     background-color: #f9f9f9; /* light gray background */
     border: 1px solid #ccc; /* light gray border */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
+    align-items: center;
+  }
+form {
+    max-width: 400px; /* adjust the max width to your liking */
+    margin: 40px auto; /* center the form */
+    padding: 20px;
+    background-color: #f9f9f9; /* light gray background */
+    border: 1px solid #ccc; /* light gray border */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow */
+    align-items: center;
+    text-align: center;
   }
   
 .button button{
@@ -32,6 +43,7 @@
   .header {
     margin-bottom: 20px; /* add some space between header and inputs */
   }
+
   
   .input { 
     width: 100%; /* make inputs full-width */
