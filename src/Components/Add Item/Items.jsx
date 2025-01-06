@@ -72,7 +72,7 @@ const Items = ({theme}) => {
               <td>&#8358;{item.price}</td>
           <td>
                         <div className={styles.actions}>
-                          <Link to={`/update-items/${item._id}`}><FaRegEdit className={styles.edit} /></Link>
+{/*                           <Link to={`/update-items/${item._id}`}><FaRegEdit className={styles.edit} /></Link> */}
                           <FaTrash  className = {styles.icon}  onClick={() => handleDelete(index, item._id)} />
                         </div>
                       </td>
