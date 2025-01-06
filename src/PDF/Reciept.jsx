@@ -14,6 +14,7 @@ const Receipt = () => {
   const [payment, setPayment] = useState('');
   const [refId, setRefId] = useState('');
   const [quantity, setQuantity] = useState([]);
+  const [discount, setDiscount] = useState("");
   const [comment, setComment] = useState('');
   const [date, setDate] = useState('');
   const { id } = useParams();
@@ -29,6 +30,7 @@ const Receipt = () => {
         setQuantity(result.data.items.map(item => item.quantity));
         setDate(result.data.date);
         setPayment(result.data.payment);
+        setDiscount(result.data.discount);
         setCustomer(result.data.customer || 'N/A');
         setRefId(result.data.referenceId || 'N/A');
         setComment(result.data.comment || '');
@@ -65,17 +67,12 @@ const Receipt = () => {
             </div>
             {/* <div>{refId}</div> */}
             <div className="receipt-body">
-              <div id='date'>{new Date(date).toLocaleDateString()}</div>
+              <div id='date'>
+                <div>{refId}</div>
+                <div> {new Date(date).toLocaleDateString()}</div>               
+                </div>
               <table>
-                <tbody>
-                <tr>
-                    <td></td>
-                    {/* <td id='date'>{new Date(date).toLocaleDateString()}</td> */}
-                  </tr>
-                <tr>
-                    <td>REF ID</td>
-                    <td>{refId}</td>
-                  </tr>
+                <tbody>   
                  <tr>
                     <td>CLIENT NAME</td>
                     <td>{customer}</td>
@@ -87,6 +84,10 @@ const Receipt = () => {
                   <tr>
                     <td>PRICE</td>
                     <td>&#8358;{price.reduce((total, itemPrice) => total + itemPrice, 0)}</td>
+                  </tr>
+                  <tr>
+                    <td>DISCOUNT</td>
+                    <td>&#8358;{discount}</td>
                   </tr>
                   <tr>
                     <td>PAYMENT</td>
@@ -101,12 +102,21 @@ const Receipt = () => {
                 </tbody>
               </table>
 
+                      <div className='discount'>
+                      TOTAL = SUB-TOTAL - DISCOUNT
+               <p>= &#8358;{price.reduce((total, itemPrice) => total + itemPrice, 0)} - &#8358;{discount}</p> 
+               {/* <p>-{discount}</p>  */}
+                </div>
               <div className="total">
+              
+               <div className='total-price'>
                 <div className="star">**********************</div>
-                <p>NGN {price.reduce((total, itemPrice) => total + itemPrice, 0)}</p>
+                <p>NGN {price.reduce((total, itemPrice) => total + itemPrice - discount)}.00</p>
                 <div className="starr">**********************</div>
-              </div>
               <div className='approoved'>{approoved}</div>
+              </div>
+              
+            </div>
             </div>
             <div className="receipt-footer">
               <p>For more enquiries, visit: <b>dosaclickventures.com.ng</b><br /> Thank you for your patronization</p>
