@@ -25,7 +25,7 @@ const AddExpense = ({ theme }) => {
 
     try {
       // Send POST request to the backend API
-      const response = await fetch('http://localhost:4000/api/add-expense', {
+      const response = await fetch('https://cafe-working-server.vercel.app/api/add-expense', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
