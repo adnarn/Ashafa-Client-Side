@@ -11,6 +11,7 @@ const Receipt = () => {
   const [customer, setCustomer] = useState('');
   const [approoved, setApprooved] = useState('');
   const [message, setMessage] = useState('');
+  const [payment, setPayment] = useState('');
   const [refId, setRefId] = useState('');
   const [quantity, setQuantity] = useState([]);
   const [comment, setComment] = useState('');
@@ -27,6 +28,7 @@ const Receipt = () => {
         setPrice(result.data.items.map(item => item.price));
         setQuantity(result.data.items.map(item => item.quantity));
         setDate(result.data.date);
+        setPayment(result.data.payment);
         setCustomer(result.data.customer || 'N/A');
         setRefId(result.data.referenceId || 'N/A');
         setComment(result.data.comment || '');
@@ -63,8 +65,13 @@ const Receipt = () => {
             </div>
             {/* <div>{refId}</div> */}
             <div className="receipt-body">
+              <div id='date'>{new Date(date).toLocaleDateString()}</div>
               <table>
                 <tbody>
+                <tr>
+                    <td></td>
+                    {/* <td id='date'>{new Date(date).toLocaleDateString()}</td> */}
+                  </tr>
                 <tr>
                     <td>REF ID</td>
                     <td>{refId}</td>
@@ -74,16 +81,18 @@ const Receipt = () => {
                     <td>{customer}</td>
                   </tr>
                   <tr>
-                    <td>DATE</td>
-                    <td>{new Date(date).toLocaleDateString()}</td>
-                  </tr>
-                  <tr>
                     <td>SERVICE NAME</td>
                     <td>{formattedItems}</td>
                   </tr>
                   <tr>
                     <td>PRICE</td>
-                    <td>{price.reduce((total, itemPrice) => total + itemPrice, 0)}</td>
+                    <td>&#8358;{price.reduce((total, itemPrice) => total + itemPrice, 0)}</td>
+                  </tr>
+                  <tr>
+                    <td>PAYMENT</td>
+                    <td>{payment}</td>
+                    {/* <td>DATE</td>
+                    <td>{new Date(date).toLocaleDateString()}</td> */}
                   </tr>
                   <tr>
                     <td>COMMENT</td>
@@ -100,7 +109,7 @@ const Receipt = () => {
               <div className='approoved'>{approoved}</div>
             </div>
             <div className="receipt-footer">
-              <p>For more enquiries, visit: <b>dosaclickventures.com.ng</b><br /> Thank you for your patronizing us</p>
+              <p>For more enquiries, visit: <b>dosaclickventures.com.ng</b><br /> Thank you for your patronization</p>
             </div>
           </div>
           <div style={{ marginTop: '20px', textAlign: 'center' }} >
