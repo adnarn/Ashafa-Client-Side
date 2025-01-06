@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
+import swal from 'sweetalert'; // Import SweetAlert
+import { toast } from 'react-toastify'; // Import toast for error handling
+import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 import styles from '../MainContent/MainContent.module.css';
 
 const ExpensesPage = ({ theme }) => {
@@ -8,12 +11,11 @@ const ExpensesPage = ({ theme }) => {
   const [total, setTotal] = useState(0); // Total sum of expenses
   const role = localStorage.getItem("role");
 
-
   // Fetch expenses from the backend
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await fetch('https://cafe-working-server.vercel.app/api/get-expense'); // Adjust the URL if needed
+        const response = await fetch('https://cafe-working-server.vercel.app/api/get-expense');
         const data = await response.json();
 
         if (response.ok) {
@@ -33,28 +35,45 @@ const ExpensesPage = ({ theme }) => {
   }, []);
 
   // Handle delete action (admin only)
-  const handleDelete = async (index, id) => {
-    if (role=='admin' && window.confirm('Are you sure you want to delete this expense?')) {
-      try {
-        const response = await fetch(`https://cafe-working-server.vercel.app/api/delete-expense/${id}`, {
-          method: 'DELETE',
-        });
+  const handleDelete = (index, id) => {
+    if (role === 'admin') {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, this expense cannot be recovered!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then(async (willDelete) => {
+        if (willDelete) {
+          try {
+            const response = await fetch(`https://cafe-working-server.vercel.app/api/delete-expense/${id}`, {
+              method: 'DELETE',
+            });
 
-        if (response.ok) {
-          // Remove the deleted item from the state
-          const updatedItems = [...items];
-          updatedItems.splice(index, 1);
-          setItems(updatedItems);
+            if (response.ok) {
+              // Remove the deleted item from the state
+              const updatedItems = [...items];
+              updatedItems.splice(index, 1);
+              setItems(updatedItems);
 
-          // Update the total
-          const deletedItem = items[index];
-          setTotal((prevTotal) => prevTotal - deletedItem.price);
+              // Update the total
+              const deletedItem = items[index];
+              setTotal((prevTotal) => prevTotal - deletedItem.price);
+
+              // Success message
+              toast.success('Expense deleted successfully!');
+            } else {
+              setError('Failed to delete expense');
+              toast.error('Failed to delete expense');
+            }
+          } catch (err) {
+            setError('An error occurred while deleting the expense');
+            toast.error('An error occurred while deleting the expense');
+          }
         } else {
-          setError('Failed to delete expense');
+          toast.info('Deletion canceled');
         }
-      } catch (err) {
-        setError('An error occurred while deleting the expense');
-      }
+      });
     }
   };
 
@@ -73,7 +92,7 @@ const ExpensesPage = ({ theme }) => {
             <tr>
               <th>Item Name</th>
               <th>Price</th>
-              {role=='admin' && <th>Action</th>}
+              {role === 'admin' && <th>Action</th>}
             </tr>
           </thead>
           <tbody>
@@ -82,7 +101,7 @@ const ExpensesPage = ({ theme }) => {
                 <tr key={item._id}>
                   <td>{item.itemName}</td>
                   <td>&#8358;{formatNumber(item.price)}</td>
-                  {role=='admin' && (
+                  {role === 'admin' && (
                     <td>
                       <div className={styles.actions}>
                         <FaTrash
@@ -96,7 +115,7 @@ const ExpensesPage = ({ theme }) => {
               ))
             ) : (
               <tr>
-                <td colSpan={role=='admin' ? 3 : 2} className="text-center">
+                <td colSpan={role === 'admin' ? 3 : 2} className="text-center">
                   No expenses found
                 </td>
               </tr>
@@ -106,7 +125,7 @@ const ExpensesPage = ({ theme }) => {
             <tr>
               <td><b>Total</b></td>
               <td><b>&#8358;{formatNumber(total)}</b></td>
-              {role=='admin' && <td></td>}
+              {role === 'admin' && <td></td>}
             </tr>
           </tfoot>
         </table>
