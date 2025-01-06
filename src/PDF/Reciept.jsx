@@ -85,10 +85,10 @@ const Receipt = () => {
                     <td>PRICE</td>
                     <td>&#8358;{price.reduce((total, itemPrice) => total + itemPrice, 0)}</td>
                   </tr>
-                  <tr>
+                {discount>5&&(  <tr>
                     <td>DISCOUNT</td>
                     <td>&#8358;{discount}</td>
-                  </tr>
+                  </tr>)}
                   <tr>
                     <td>PAYMENT</td>
                     <td>{payment}</td>
@@ -102,16 +102,20 @@ const Receipt = () => {
                 </tbody>
               </table>
 
-                      <div className='discount'>
+                  {   discount>5 &&
+                (   <div className='discount'>
                       TOTAL = SUB-TOTAL - DISCOUNT
                <p>= &#8358;{price.reduce((total, itemPrice) => total + itemPrice, 0)} - &#8358;{discount}</p> 
                {/* <p>-{discount}</p>  */}
-                </div>
+                </div>)}
               <div className="total">
               
                <div className='total-price'>
                 <div className="star">**********************</div>
-                <p>NGN {price.reduce((total, itemPrice) => total + itemPrice - discount)}.00</p>
+                {discount>5 ? 
+               ( <p>NGN {price.reduce((total, itemPrice) => total + itemPrice - discount)}.00</p>):
+               ( <p>NGN {price.reduce((total, itemPrice) => total + itemPrice, 0)}.00</p>)
+                }
                 <div className="starr">**********************</div>
               <div className='approoved'>{approoved}</div>
               </div>
