@@ -10,16 +10,21 @@ import LoadingComponent from "../loadingComponent";
 const MainContent = ({ theme }) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState(""); // Search query
   const role = localStorage.getItem("role");
 
   useEffect(() => {
-    fetchItems();
-  }, []);
+    const delayDebounceFn = setTimeout(() => {
+      fetchItems(query); // Fetch items dynamically based on query
+    }, 300); // Debounce time for smoother typing experience
 
-  const fetchItems = async (query = "") => {
+    return () => clearTimeout(delayDebounceFn); // Cleanup timeout
+  }, [query]);
+
+  const fetchItems = async (searchQuery = "") => {
     setLoading(true);
-    const url = query
-      ? `https://cafe-working-server.vercel.app/search?q=${query}`
+    const url = searchQuery
+      ? `https://cafe-working-server.vercel.app/search?q=${searchQuery}`
       : "https://cafe-working-server.vercel.app/";
 
     try {
@@ -59,17 +64,32 @@ const MainContent = ({ theme }) => {
     return dayItems.reduce(
       (total, entry) =>
         total +
-        entry.items.reduce(
-          (subTotal, item) => subTotal + item.price,
-          0
-        ),
+        entry.items.reduce((subTotal, item) => subTotal + item.price, 0),
       0
     );
   };
 
-  // Filter items based on role
-  const filteredItems = role === "admin" ? items : items.filter((item) => isToday(item.date));
+  const handleDelete = async (id) => {
+    try {
+      const confirmation = await swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this entry!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      });
+      if (confirmation) {
+        await axios.delete(`https://cafe-working-server.vercel.app/deleteItem/${id}`);
+        swal("Success", "Entry deleted successfully", "success");
+        fetchItems(query); // Refresh the items
+      }
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      swal("Error", "Failed to delete item. Please try again.", "error");
+    }
+  };
 
+  const filteredItems = role === "admin" ? items : items.filter((item) => isToday(item.date));
   const groupedItems = groupByDay(filteredItems);
 
   if (loading) {
@@ -85,7 +105,7 @@ const MainContent = ({ theme }) => {
       <main>
         <div className={styles.header}>
           <h2 className={styles.headers}>Dashboard</h2>
-          <SearchBar onSearch={fetchItems} />
+          <SearchBar onSearch={(value) => setQuery(value)} />
           <Link to="/add">
             <button className={styles.button}>
               <FaPlusCircle className={styles.icons} /> Add Item
@@ -116,15 +136,12 @@ const MainContent = ({ theme }) => {
             <tbody>
               {Object.keys(groupedItems).map((date, dateIndex) => (
                 <React.Fragment key={dateIndex}>
-                  {/* Display Date as a Header */}
                   <tr>
                     <td colSpan="11" style={{ fontWeight: "bold" }}>
                       {date}
                     </td>
                   </tr>
-
-                  {/* Display Entries for Each Date */}
-                  {groupedItems[date].map((entry, entryIndex) =>
+                  {groupedItems[date].map((entry) =>
                     entry.items.map((item, itemIndex) => (
                       <tr key={`${entry._id}-${itemIndex}`}>
                         <td>{entry.referenceId}</td>
@@ -159,8 +176,6 @@ const MainContent = ({ theme }) => {
                       </tr>
                     ))
                   )}
-
-                  {/* Daily Total for Each Group */}
                   <tr>
                     <td colSpan="6">
                       <strong>Daily Total</strong>
@@ -172,7 +187,6 @@ const MainContent = ({ theme }) => {
                 </React.Fragment>
               ))}
 
-              {/* Overall Total for Admin */}
               {role === "admin" && (
                 <tr>
                   <td colSpan="6">
@@ -184,11 +198,7 @@ const MainContent = ({ theme }) => {
                       {items.reduce(
                         (overallTotal, entry) =>
                           overallTotal +
-                          entry.items.reduce(
-                            (subTotal, item) =>
-                              subTotal + item.price,
-                            0
-                          ),
+                          entry.items.reduce((subTotal, item) => subTotal + item.price, 0),
                         0
                       )}
                     </strong>
