@@ -203,8 +203,8 @@ useEffect(() => {
             theme === "light" ? "light-pieChart" : "dark-pieChart"
           }`}
         >
-          <h5>EXPENSES = {expense}</h5>
           <h5>PROFIT =  {profit}</h5>
+          <h5>EXPENSES = {expense}</h5>
         </div>
       </div>
 
