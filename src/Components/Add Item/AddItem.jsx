@@ -111,7 +111,7 @@ const AddItem = ({ theme }) => {
         <Link to="/add-selected-item">
           <button className={styles.button}>
             <FaPlusCircle className={styles.icons} />
-                 Edit Item
+                 Manage Services
           </button>
         </Link>
       </div>
