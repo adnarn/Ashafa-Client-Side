@@ -103,10 +103,10 @@ const HomeDash = ({ theme }) => {
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="card h-100 text-center shadow">
             <div className="card-body">
-              <FaBook className="mb-3 text-info" size={50} />
+              <FaBook className="mb-3 text-success" size={50} />
               <h5 className="card-title">View Records</h5>
               <p className="card-text">View all available records.</p>
-              <Link to="/clipBoard" className="btn btn-info">
+              <Link to="/clipBoard" className="btn btn-success">
                 View Records
               </Link>
             </div>
@@ -117,10 +117,10 @@ const HomeDash = ({ theme }) => {
         <div className="col-12 col-sm-6 col-lg-3">
           <div className="card h-100 text-center shadow">
             <div className="card-body">
-              <FaSearch className="mb-3 text-success" size={50} />
+              <FaSearch className="mb-3 text-info" size={50} />
               <h5 className="card-title">View Expenses</h5>
               <p className="card-text">View and inspect all expenses.</p>
-              <Link to="/expenses" className="btn btn-success">
+              <Link to="/expenses" className="btn btn-info">
                 View Expenses
               </Link>
             </div>
