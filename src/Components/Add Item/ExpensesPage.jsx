@@ -136,12 +136,11 @@
 
 // export default ExpensesPage;
 
-
 import React, { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import swal from "sweetalert"; // Import SweetAlert
-import { toast } from "react-toastify"; // Import toast for error handling
-import "react-toastify/dist/ReactToastify.css"; // Import toast styles
+import swal from "sweetalert";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styles from "../MainContent/MainContent.module.css";
 
 const ExpensesPage = ({ theme }) => {
@@ -161,6 +160,7 @@ const ExpensesPage = ({ theme }) => {
 
         if (response.ok) {
           setItems(data);
+
           // Calculate the overall total
           const totalSum = data.reduce((sum, item) => sum + item.price, 0);
           setTotal(totalSum);
@@ -195,16 +195,13 @@ const ExpensesPage = ({ theme }) => {
             );
 
             if (response.ok) {
-              // Remove the deleted item from the state
               const updatedItems = [...items];
               updatedItems.splice(index, 1);
               setItems(updatedItems);
 
-              // Update the total
               const deletedItem = items[index];
               setTotal((prevTotal) => prevTotal - deletedItem.price);
 
-              // Success message
               toast.success("Expense deleted successfully!");
             } else {
               setError("Failed to delete expense");
@@ -221,16 +218,10 @@ const ExpensesPage = ({ theme }) => {
     }
   };
 
-  // Format numbers with commas
-  const formatNumber = (number) => number.toLocaleString();
-
-  // Format dates
-  const formatDate = (dateString) => new Date(dateString).toLocaleDateString();
-
   // Group items by date
-  const groupByDay = (items) => {
+  const groupByDate = (items) => {
     return items.reduce((groups, item) => {
-      const date = formatDate(item.date);
+      const date = new Date(item.date).toISOString().split("T")[0]; // Format as YYYY-MM-DD
       if (!groups[date]) {
         groups[date] = [];
       }
@@ -244,7 +235,13 @@ const ExpensesPage = ({ theme }) => {
     return dayItems.reduce((sum, item) => sum + item.price, 0);
   };
 
-  const groupedItems = groupByDay(items);
+  const groupedItems = groupByDate(items);
+  const sortedDates = Object.keys(groupedItems).sort((a, b) => new Date(b) - new Date(a)); // Sort descending
+
+  // Format numbers and dates
+  const formatNumber = (number) => number.toLocaleString();
+  const formatTime = (dateString) => new Date(dateString).toLocaleTimeString();
+  const formatDate = (dateString) => new Date(dateString).toLocaleDateString();
 
   return (
     <div>
@@ -258,33 +255,41 @@ const ExpensesPage = ({ theme }) => {
         >
           <thead>
             <tr>
-              <th>Item Name</th>
-              <th>Price</th>
-              <th>Date</th>
+              <th>Receipt No.</th>
+              <th>Name</th>
+              <th>Comment</th>
+              <th>Payment</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Qty</th>
+              <th>Time</th>
               {role === "admin" && <th>Action</th>}
             </tr>
           </thead>
           <tbody>
-            {Object.keys(groupedItems).map((date, dateIndex) => (
-              <React.Fragment key={dateIndex}>
+            {sortedDates.map((date) => (
+              <React.Fragment key={date}>
                 <tr>
-                  <td colSpan={role === "admin" ? 4 : 3} style={{ fontWeight: "bold" }}>
-                    {date}
+                  <td colSpan={role === "admin" ? 9 : 8} style={{ fontWeight: "bold" }}>
+                    {formatDate(date)}
                   </td>
                 </tr>
                 {groupedItems[date].map((item, index) => (
                   <tr key={item._id}>
-                    <td>{item.itemName}</td>
+                    <td>{item.receiptNo || "N/A"}</td>
+                    <td>{item.name}</td>
+                    <td>{item.comment || "No Comment"}</td>
+                    <td>{item.payment}</td>
+                    <td>{item.description}</td>
                     <td>&#8358;{formatNumber(item.price)}</td>
-                    <td>{new Date(item.date).toLocaleTimeString()}</td>
+                    <td>{item.qty}</td>
+                    <td>{formatTime(item.date)}</td>
                     {role === "admin" && (
                       <td>
-                        <div className={styles.actions}>
-                          <FaTrash
-                            className={styles.icon}
-                            onClick={() => handleDelete(index, item._id)}
-                          />
-                        </div>
+                        <FaTrash
+                          className={styles.icon}
+                          onClick={() => handleDelete(index, item._id)}
+                        />
                       </td>
                     )}
                   </tr>
@@ -293,16 +298,17 @@ const ExpensesPage = ({ theme }) => {
                   <td>
                     <strong>Daily Total</strong>
                   </td>
+                  <td colSpan={4}></td>
                   <td>
                     <strong>&#8358;{formatNumber(computeTotal(groupedItems[date]))}</strong>
                   </td>
-                  <td colSpan={role === "admin" ? 2 : 1}></td>
+                  <td colSpan={role === "admin" ? 3 : 2}></td>
                 </tr>
               </React.Fragment>
             ))}
             {items.length === 0 && (
               <tr>
-                <td colSpan={role === "admin" ? 4 : 3} className="text-center">
+                <td colSpan={role === "admin" ? 9 : 8} className="text-center">
                   No expenses found
                 </td>
               </tr>
@@ -313,10 +319,11 @@ const ExpensesPage = ({ theme }) => {
               <td>
                 <b>Overall Total</b>
               </td>
+              <td colSpan={4}></td>
               <td>
                 <b>&#8358;{formatNumber(total)}</b>
               </td>
-              <td colSpan={role === "admin" ? 2 : 1}></td>
+              <td colSpan={role === "admin" ? 3 : 2}></td>
             </tr>
           </tfoot>
         </table>
