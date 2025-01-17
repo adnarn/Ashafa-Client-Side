@@ -115,7 +115,7 @@ const total = discount > 5 ? subtotal - discount : subtotal;
               
                <div className='total-price'>
                 <div className="star">**********************</div>
-                  &#8358;{total} <br /> 
+                  &#8358;{total} <br /> <br />
                 <div className="starr">**********************</div>
               <div className='approoved'>{approoved}</div>
               </div>
