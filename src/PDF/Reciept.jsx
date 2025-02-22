@@ -77,7 +77,7 @@ const Receipt = () => {
                 <tr>
                   <th>Item</th>
                   <th>Quantity</th>
-                  <th>Price</th>
+                  <th>Price"""""""""""</th>
                 </tr>
               </thead>
               <tbody>
