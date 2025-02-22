@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect, useRef } from "react"
 import axios from "axios"
 import "./Receipt.css"
@@ -19,7 +17,7 @@ const Receipt = () => {
   useEffect(() => {
     const fetchReceipt = async () => {
       try {
-        const response = await axios.get(`https://your-api-endpoint/receipts/${id}`)
+        const response = await axios.get(`https://cafe-working-server.vercel.app/getItem/${id}`)
         setReceipt(response.data)
         setIsReceiptVisible(true)
       } catch (error) {
