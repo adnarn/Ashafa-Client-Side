@@ -1,14 +1,148 @@
-/* Add these styles to your existing Receipt.css file */
+/* Professional Receipt Styling for Thermal Printing */
 
-/* Thermal receipt specific styles */
-.thermal-receipt {
+/* Base receipt container */
+.receipt {
   width: 80mm;
-  font-family: 'Courier New', monospace;
+  font-family: 'Arial', sans-serif;
   margin: 0 auto;
   background-color: white;
   color: black;
-  padding: 10px;
+  padding: 10px 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Receipt header styling */
+.receipt-header {
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #ccc;
+  margin-bottom: 10px;
+}
+
+.company-logo {
+  max-width: 100px;
+  height: auto;
+  margin: 0 auto 8px;
+  display: block;
+}
+
+.company-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.company-address {
+  font-size: 11px;
+  margin-bottom: 3px;
+}
+
+.phone {
+  font-size: 11px;
+  margin-bottom: 3px;
+}
+
+/* Receipt body styling */
+.receipt-body {
+  padding: 5px 0;
+}
+
+#date {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  margin-bottom: 10px;
+  padding: 5px 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+table tr {
+  border-bottom: 1px dotted #eee;
+}
+
+table tr:last-child {
+  border-bottom: none;
+}
+
+table td {
+  padding: 5px 2px;
+  vertical-align: top;
+}
+
+table td:first-child {
+  font-weight: bold;
+  width: 40%;
+}
+
+table td:last-child {
+  text-align: right;
+}
+
+/* Discount section */
+.discount {
+  font-size: 11px;
+  margin: 5px 0;
+  padding: 5px 0;
+  border-top: 1px dashed #ccc;
+  border-bottom: 1px dashed #ccc;
+}
+
+.discount p {
+  margin: 3px 0;
+  text-align: right;
+}
+
+/* Total section */
+.total {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.total-price {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.star, .starr {
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin: 5px 0;
+}
+
+.approoved {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 5px 0;
+  letter-spacing: 1px;
+}
+
+/* Receipt footer */
+.receipt-footer {
+  text-align: center;
+  font-size: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #ccc;
+  margin-top: 10px;
+}
+
+.receipt-footer p {
+  margin: 3px 0;
+  line-height: 1.3;
+}
+
+.receipt-footer b {
+  font-weight: bold;
 }
 
 /* Print button styling */
@@ -18,36 +152,53 @@
 }
 
 .print-button {
-  background-color: #4CAF50;
+  background-color: #2c3e50;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 14px;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .print-button:hover {
-  background-color: #45a049;
+  background-color: #1a2530;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.print-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* Optimize for thermal printing */
 @media print {
+  @page {
+    size: 80mm auto;
+    margin: 0mm;
+  }
+  
   body, html {
     width: 80mm;
     margin: 0;
     padding: 0;
+    background-color: white;
   }
   
-  .thermal-receipt {
+  .receipt {
     width: 100%;
     box-shadow: none;
-    padding: 0;
+    padding: 2mm;
     margin: 0;
+    border-radius: 0;
   }
   
   .receipt-header, .receipt-body, .receipt-footer {
@@ -56,19 +207,43 @@
   
   .company-logo {
     max-width: 60%;
-    height: auto;
+  }
+  
+  .company-name {
+    font-size: 14px;
+  }
+  
+  .company-address, .phone {
+    font-size: 10px;
   }
   
   table {
-    width: 100%;
-    border-collapse: collapse;
+    font-size: 10px;
   }
   
-  td {
-    padding: 2px 0;
+  .total-price {
+    font-size: 14px;
   }
   
   .print-controls {
-    display: none;
+    display: none !important;
+  }
+}
+
+/* Additional professional touches */
+.approoved {
+  color: #27ae60;
+}
+
+/* For failed transactions */
+.failed {
+  color: #e74c3c;
+}
+
+/* Responsive adjustments for preview on screen */
+@media screen and (max-width: 600px) {
+  .receipt {
+    width: 95%;
+    max-width: 300px;
   }
 }
