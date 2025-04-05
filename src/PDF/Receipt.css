@@ -105,7 +105,7 @@
 }
 
 /* Print Styles */
-@media print {
+/* @media print {
   body {
     margin: 0;
     padding: 0;
@@ -123,9 +123,28 @@
   .print-button {
     display: none;
   }
+  
 
   @page {
     size: 48mm auto;
     margin: 0;
   }
+} */
+
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .receipt, .receipt * {
+    visibility: visible;
+  }
+
+  .receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }
+
