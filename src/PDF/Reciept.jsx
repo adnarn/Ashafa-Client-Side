@@ -59,6 +59,8 @@ const Receipt = () => {
 
   // Update the handlePrint configuration in your Receipt.jsx file:
 
+// Update the handlePrint configuration in your Receipt.jsx file:
+
 const handlePrint = useReactToPrint({
   content: () => receiptRef.current,
   onBeforeGetContent: () => {
@@ -70,39 +72,46 @@ const handlePrint = useReactToPrint({
   onAfterPrint: () => {
     setIsPrinting(false);
   },
-  // Enhanced thermal printer settings
+  // Enhanced thermal printer settings for smaller, bolder text
   pageStyle: `
     @page {
-      size: 80mm auto;
+      size: 70mm auto;
       margin: 0mm;
     }
     @media print {
       body {
-        width: 80mm;
+        width: 70mm;
         margin: 0;
         padding: 0;
       }
       * {
         font-family: 'Courier New', monospace !important;
-        font-weight: 600 !important;
-        line-height: 1.5 !important;
+        font-weight: 700 !important;
+        line-height: 1.3 !important;
+        font-size: 10px !important;
       }
-      strong, b, h1, h2, h3, h4, h5, h6 {
-        font-weight: 800 !important;
+      strong, b, h1, h2, h3, h4, h5, h6, .company-name, .total-price, .approoved {
+        font-weight: 900 !important;
+      }
+      .company-name {
+        font-size: 14px !important;
+      }
+      .total-price, .approoved {
+        font-size: 14px !important;
       }
       .receipt {
         width: 100%;
-        padding: 3mm;
+        padding: 2mm;
         margin: 0;
       }
       .print-button {
         display: none !important;
       }
       table td {
-        padding: 6px 3px !important;
+        padding: 4px 2px !important;
       }
-      .total-price, .approoved {
-        font-weight: 800 !important;
+      .star, .starr {
+        font-size: 12px !important;
       }
     }
   `,
