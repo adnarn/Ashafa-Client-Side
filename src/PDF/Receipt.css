@@ -1,76 +1,72 @@
-/* Optimized Receipt Styling for Clear Thermal Printing */
+/* Professional Receipt Styling for Thermal Printing */
 
 /* Base receipt container */
 .receipt {
   width: 80mm;
-  font-family: 'Consolas', monospace; /* Better for thermal printers */
+  font-family: 'Arial', sans-serif;
   margin: 0 auto;
   padding: 10px 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   font-size: 12px;
-  line-height: 0.5; /* Increased line height for clarity */
+  line-height: 1.4;
 }
 
 /* Receipt header styling */
 .receipt-header {
   text-align: center;
-  padding-bottom: 12px;
-  border-bottom: 1px dashed #000; /* Darker border for better visibility */
-  margin-bottom: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #ccc;
+  margin-bottom: 10px;
 }
 
 .company-logo {
-  max-width: 70px; /* Larger logo */
+  max-width: 100px;
   height: auto;
   margin: 0 auto 8px;
   display: block;
 }
 
 .company-name {
-  font-size: 14px; /* Larger font */
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
   text-transform: uppercase;
-  letter-spacing: 0.5px; /* Better letter spacing */
 }
 
 .company-address {
-  font-size: 12px;
-  margin-bottom: 4px;
-  font-weight: 600; /* Semi-bold for better visibility */
+  font-size: 11px;
+  margin-bottom: 3px;
 }
 
 .phone {
-  font-size: 12px;
-  margin-bottom: 4px;
-  font-weight: 600;
+  font-size: 11px;
+  margin-bottom: 3px;
 }
 
 /* Receipt body styling */
 .receipt-body {
-  padding: 8px 0;
+  padding: 5px 0;
 }
 
 #date {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 12px;
-  padding: 6px 0;
-  border-bottom: 1px dashed #000;
+  font-size: 11px;
+  margin-bottom: 10px;
+  padding: 5px 0;
+  border-bottom: 1px dashed #ccc;
 }
 
 /* Table styling */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 table tr {
-  border-bottom: 1px dotted #000; /* Darker dotted lines */
+  border-bottom: 1px dotted #eee;
 }
 
 table tr:last-child {
@@ -78,7 +74,7 @@ table tr:last-child {
 }
 
 table td {
-  padding: 6px 3px; /* More padding */
+  padding: 5px 2px;
   vertical-align: top;
 }
 
@@ -89,62 +85,58 @@ table td:first-child {
 
 table td:last-child {
   text-align: right;
-  font-weight: bold; /* Bold text for values */
 }
 
 /* Discount section */
 .discount {
-  font-size: 12px;
-  margin: 8px 0;
-  padding: 6px 0;
-  border-top: 1px dashed #000;
-  border-bottom: 1px dashed #000;
-  font-weight: bold;
+  font-size: 11px;
+  margin: 5px 0;
+  padding: 5px 0;
+  border-top: 1px dashed #ccc;
+  border-bottom: 1px dashed #ccc;
 }
 
 .discount p {
-  margin: 4px 0;
+  margin: 3px 0;
   text-align: right;
 }
 
 /* Total section */
 .total {
-  margin: 12px 0;
+  margin: 10px 0;
   text-align: center;
 }
 
 .total-price {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 }
 
 .star, .starr {
-  font-size: 14px;
-  letter-spacing: 2px; /* More spacing between stars */
-  margin: 6px 0;
-  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin: 5px 0;
 }
 
 .approoved {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
-  margin: 8px 0;
+  margin: 5px 0;
   letter-spacing: 1px;
 }
 
 /* Receipt footer */
 .receipt-footer {
   text-align: center;
-  font-size: 12px;
-  padding-top: 12px;
-  border-top: 1px dashed #000;
-  margin-top: 12px;
-  font-weight: 600;
+  font-size: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #ccc;
+  margin-top: 10px;
 }
 
 .receipt-footer p {
-  margin: 4px 0;
-  line-height: 1.4;
+  margin: 3px 0;
+  line-height: 1.3;
 }
 
 .receipt-footer b {
@@ -188,17 +180,15 @@ table td:last-child {
 /* Optimize for thermal printing */
 @media print {
   @page {
-    size: 80mm auto;
+    size: 58mm auto;
     margin: 0mm;
   }
   
   body, html {
-    width: 58mm;
+    width: 80mm;
     margin: 0;
     padding: 0;
     background-color: white;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
   }
   
   .receipt {
@@ -207,8 +197,6 @@ table td:last-child {
     padding: 2mm;
     margin: 0;
     border-radius: 0;
-    font-family: 'Consolas', monospace;
-    font-weight: 600; /* Slightly bolder for thermal printing */
   }
   
   .receipt-header, .receipt-body, .receipt-footer {
@@ -216,41 +204,23 @@ table td:last-child {
   }
   
   .company-logo {
-    max-width: 55%;
-    height: auto;
+    max-width: 60%;
   }
   
   .company-name {
-    font-size: 16px;
-    font-weight: 800; /* Extra bold for header */
+    font-size: 14px;
   }
   
   .company-address, .phone {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 10px;
   }
   
   table {
-    font-size: 12px;
-    font-weight: 600;
-  }
-  
-  table td:first-child {
-    font-weight: 700;
-  }
-  
-  table td:last-child {
-    font-weight: 700;
+    font-size: 10px;
   }
   
   .total-price {
-    font-size: 16px;
-    font-weight: 800;
-  }
-  
-  .approoved {
-    font-size: 16px;
-    font-weight: 800;
+    font-size: 14px;
   }
   
   .print-controls {
@@ -260,14 +230,12 @@ table td:last-child {
 
 /* Additional professional touches */
 .approoved {
-  color: #000000; /* Black for better thermal printing */
-  font-weight: 800;
+  color: #27ae60;
 }
 
 /* For failed transactions */
 .failed {
-  color: #000000; /* Black for better thermal printing */
-  font-weight: 800;
+  color: #e74c3c;
 }
 
 /* Responsive adjustments for preview on screen */
