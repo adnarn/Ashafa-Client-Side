@@ -57,39 +57,59 @@ const Receipt = () => {
   const subtotal = price.reduce((total, itemPrice) => total + itemPrice, 0);
   const total = discount > 5 ? subtotal - discount : subtotal;
 
-  // Handle printing functionality
-  const handlePrint = useReactToPrint({
-    content: () => receiptRef.current,
-    onBeforeGetContent: () => {
-      setIsPrinting(true);
-      return new Promise((resolve) => {
-        setTimeout(resolve, 500);
-      });
-    },
-    onAfterPrint: () => {
-      setIsPrinting(false);
-    },
-    // Thermal printer settings
-    pageStyle: `
-      @page {
-        size: 80mm auto;
-        margin: 0mm;
+  // Update the handlePrint configuration in your Receipt.jsx file:
+
+const handlePrint = useReactToPrint({
+  content: () => receiptRef.current,
+  onBeforeGetContent: () => {
+    setIsPrinting(true);
+    return new Promise((resolve) => {
+      setTimeout(resolve, 500);
+    });
+  },
+  onAfterPrint: () => {
+    setIsPrinting(false);
+  },
+  // Enhanced thermal printer settings
+  pageStyle: `
+    @page {
+      size: 80mm auto;
+      margin: 0mm;
+    }
+    @media print {
+      body {
+        width: 80mm;
+        margin: 0;
+        padding: 0;
       }
-      @media print {
-        body {
-          width: 80mm;
-          font-size: 12px;
-        }
-        .receipt {
-          width: 100%;
-          padding: 5px;
-        }
-        .print-button {
-          display: none;
-        }
+      * {
+        font-family: 'Courier New', monospace !important;
+        font-weight: 600 !important;
+        line-height: 1.5 !important;
       }
-    `,
-  });
+      strong, b, h1, h2, h3, h4, h5, h6 {
+        font-weight: 800 !important;
+      }
+      .receipt {
+        width: 100%;
+        padding: 3mm;
+        margin: 0;
+      }
+      .print-button {
+        display: none !important;
+      }
+      table td {
+        padding: 6px 3px !important;
+      }
+      .total-price, .approoved {
+        font-weight: 800 !important;
+      }
+    }
+  `,
+  // Set print quality to high
+  copyStyles: true,
+  documentTitle: 'DosaClick Receipt',
+});
 
   // Auto-print when receipt is loaded
   useEffect(() => {
