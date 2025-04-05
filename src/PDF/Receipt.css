@@ -1,8 +1,6 @@
 /* Base Styles */
 .receipt {
-  width: 300px; /* Thermal printer width */
-  border: 1px solid #ccc;
-  border-radius: 2px;
+  width: 300px; /* Adjust for thermal printer's width */
   padding: 10px;
   font-family: Arial, sans-serif;
   font-size: 12px;
@@ -103,6 +101,17 @@
   margin-top: -12px;
 }
 
+.print-button {
+  border: none;
+  background-color: #28a745;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
 /* Print Styles */
 @media print {
   body {
@@ -111,46 +120,23 @@
   }
 
   .receipt {
-    width: 48mm; /* Adjust to match your thermal printer's width */
+    width: 48mm; /* Adjust for your thermal printer width */
     max-width: 48mm;
-    font-size: 10px; /* Adjust for readability */
+    font-size: 10px;
     padding: 5px;
     margin: 0;
     box-sizing: border-box;
-  }
-
-  .receipt-header {
-    margin-bottom: 10px;
-  }
-
-  .company-logo {
-    max-width: 80px; /* Ensure logo fits */
-    margin-bottom: -5px;
-  }
-
-  .company-name {
-    font-size: 1.1em; /* Adjust size for print */
-  }
-
-  .receipt-body table td {
-    font-size: 0.9em;
-  }
-
-  .total-price {
-    font-size: 1em;
   }
 
   .print-button {
     display: none;
   }
 
-  /* Remove unnecessary elements when printing */
-  .receipt-footer,
-  .client-info {
+  .receipt-footer {
     display: none;
   }
 
-  /* Print Page Layout */
+  /* Hide elements that shouldn't print */
   @page {
     size: 48mm auto;
     margin: 0;
