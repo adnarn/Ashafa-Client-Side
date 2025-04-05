@@ -3,7 +3,7 @@ import axios from 'axios';
 import './Receipt.css';
 import { useParams } from 'react-router-dom';
 import logo from '../assets/logo.jpeg';
-import ReactToPrint from 'react-to-print';
+import { useReactToPrint } from 'react-to-print';
 
 const Receipt = () => {
   const [name, setName] = useState([]);
@@ -20,9 +20,10 @@ const Receipt = () => {
   const { id } = useParams();
   const receiptRef = useRef();
   const [isReceiptVisible, setIsReceiptVisible] = useState(false);
+  const [isPrinting, setIsPrinting] = useState(false);
 
   useEffect(() => {
-    axios.get(https://cafe-working-server.vercel.app/getItem/${id})
+    axios.get(`https://cafe-working-server.vercel.app/getItem/${id}`)
       .then(result => {
         console.log('Fetched Data:', result.data);
         setName(result.data.items.map(item => item.name));
@@ -35,7 +36,7 @@ const Receipt = () => {
         setRefId(result.data.referenceId || 'N/A');
         setComment(result.data.comment || '');
         setApprooved('APPROOVED');
-        setMessage('Transaction Approoved');
+        setMessage('Transaction Approved');
         setIsReceiptVisible(true);
       })
       .catch(err => {
@@ -50,17 +51,65 @@ const Receipt = () => {
   }, [id]);
 
   const formattedItems = name
-    .map((itemName, index) => ${itemName} x ${quantity[index]})
+    .map((itemName, index) => `${itemName} x ${quantity[index]}`)
     .join(', ');
-  
-const subtotal = price.reduce((total, itemPrice) => total + itemPrice, 0);
-const total = discount > 5 ? subtotal - discount : subtotal;
-  
+
+  const subtotal = price.reduce((total, itemPrice) => total + itemPrice, 0);
+  const total = discount > 5 ? subtotal - discount : subtotal;
+
+  // Handle printing functionality
+  const handlePrint = useReactToPrint({
+    content: () => receiptRef.current,
+    onBeforeGetContent: () => {
+      setIsPrinting(true);
+      return new Promise((resolve) => {
+        setTimeout(resolve, 500);
+      });
+    },
+    onAfterPrint: () => {
+      setIsPrinting(false);
+    },
+    // Thermal printer settings
+    pageStyle: `
+      @page {
+        size: 80mm auto;
+        margin: 0mm;
+      }
+      @media print {
+        body {
+          width: 80mm;
+          font-size: 12px;
+        }
+        .receipt {
+          width: 100%;
+          padding: 5px;
+        }
+        .print-button {
+          display: none;
+        }
+      }
+    `,
+  });
+
+  // Auto-print when receipt is loaded
+  useEffect(() => {
+    if (isReceiptVisible && !isPrinting) {
+      // Optional: Auto-print when receipt loads
+      // setTimeout(handlePrint, 1000);
+    }
+  }, [isReceiptVisible, isPrinting]);
+
   return (
     <div>
       {isReceiptVisible && (
         <div>
-          <div ref={receiptRef} className="receipt">
+          <div className="print-controls">
+            <button className="print-button" onClick={handlePrint}>
+              Print Receipt
+            </button>
+          </div>
+          
+          <div ref={receiptRef} className="receipt thermal-receipt">
             <div className="receipt-header">
               <img src={logo} alt='' className="company-logo" />
               <div className="company-name">DosaClick Global Concept</div>
@@ -68,15 +117,14 @@ const total = discount > 5 ? subtotal - discount : subtotal;
               <div className="phone">dosaclickglobal@gmail.com</div>
               <div className="phone">09018181999</div>
             </div>
-            {/* <div>{refId}</div> */}
             <div className="receipt-body">
               <div id='date'>
                 <div>{refId}</div>
-                <div> {new Date(date).toLocaleDateString()}</div>               
-                </div>
+                <div> {new Date(date).toLocaleDateString()}</div>
+              </div>
               <table>
-                <tbody>   
-                 <tr>
+                <tbody>
+                  <tr>
                     <td>CLIENT NAME</td>
                     <td>{customer}</td>
                   </tr>
@@ -88,15 +136,15 @@ const total = discount > 5 ? subtotal - discount : subtotal;
                     <td>PRICE</td>
                     <td>&#8358;{price.reduce((total, itemPrice) => total + itemPrice, 0)}</td>
                   </tr>
-                {discount>5&&(  <tr>
-                    <td>DISCOUNT</td>
-                    <td>&#8358;{discount}</td>
-                  </tr>)}
+                  {discount > 5 && (
+                    <tr>
+                      <td>DISCOUNT</td>
+                      <td>&#8358;{discount}</td>
+                    </tr>
+                  )}
                   <tr>
                     <td>PAYMENT</td>
                     <td>{payment}</td>
-                    {/* <td>DATE</td>
-                    <td>{new Date(date).toLocaleDateString()}</td> */}
                   </tr>
                   <tr>
                     <td>COMMENT</td>
@@ -104,34 +152,24 @@ const total = discount > 5 ? subtotal - discount : subtotal;
                   </tr>
                 </tbody>
               </table>
-
-                  {   discount>5 &&
-                (   <div className='discount'>
-                      TOTAL = SUB-TOTAL - DISCOUNT
-               <p>= &#8358;{price.reduce((total, itemPrice) => total + itemPrice, 0)} - &#8358;{discount}</p> 
-               {/* <p>-{discount}</p>  */}
-                </div>)}
+              {discount > 5 && (
+                <div className='discount'>
+                  TOTAL = SUB-TOTAL - DISCOUNT
+                  <p>= &#8358;{price.reduce((total, itemPrice) => total + itemPrice, 0)} - &#8358;{discount}</p>
+                </div>
+              )}
               <div className="total">
-              
-               <div className='total-price'>
-                <div className="star">**********************</div>
+                <div className='total-price'>
+                  <div className="star">**********************</div>
                   &#8358;{total} <br /> <br />
-                <div className="starr">**********************</div>
-              <div className='approoved'>{approoved}</div>
+                  <div className="starr">**********************</div>
+                  <div className='approoved'>{approoved}</div>
+                </div>
               </div>
-              
-            </div>
             </div>
             <div className="receipt-footer">
               <p>For more enquiries, visit: <b>dosaclick.com.ng</b><br /> Thank you for your patronization</p>
             </div>
-          </div>
-          <div style={{ marginTop: '20px', textAlign: 'center' }} >
-            <ReactToPrint
-              trigger={() => <button className='print-button' style={{ padding: '10px 20px', fontSize: '16px' }}>Print Receipt</button>}
-              content={() => receiptRef.current}
-              documentTitle={'INVOICE'}
-            />
           </div>
         </div>
       )}
