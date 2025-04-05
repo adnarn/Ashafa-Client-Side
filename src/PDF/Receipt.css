@@ -180,7 +180,7 @@ table td:last-child {
 /* Optimize for thermal printing */
 @media print {
   @page {
-    size: 58mm auto;
+    size: 80mm auto;
     margin: 0mm;
   }
   
