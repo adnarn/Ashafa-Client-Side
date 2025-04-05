@@ -3,15 +3,13 @@
 /* Base receipt container */
 .receipt {
   width: 80mm;
-  font-family: 'Courier New', monospace; /* Better for thermal printers */
+  font-family: 'Consolas', monospace; /* Better for thermal printers */
   margin: 0 auto;
-  background-color: white;
-  color: black;
   padding: 10px 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   font-size: 12px;
-  line-height: 1.5; /* Increased line height for clarity */
+  line-height: 0.5; /* Increased line height for clarity */
 }
 
 /* Receipt header styling */
@@ -19,20 +17,20 @@
   text-align: center;
   padding-bottom: 12px;
   border-bottom: 1px dashed #000; /* Darker border for better visibility */
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .company-logo {
-  max-width: 120px; /* Larger logo */
+  max-width: 70px; /* Larger logo */
   height: auto;
-  margin: 0 auto 10px;
+  margin: 0 auto 8px;
   display: block;
 }
 
 .company-name {
-  font-size: 18px; /* Larger font */
+  font-size: 14px; /* Larger font */
   font-weight: bold;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   text-transform: uppercase;
   letter-spacing: 0.5px; /* Better letter spacing */
 }
@@ -195,7 +193,7 @@ table td:last-child {
   }
   
   body, html {
-    width: 80mm;
+    width: 58mm;
     margin: 0;
     padding: 0;
     background-color: white;
@@ -206,10 +204,10 @@ table td:last-child {
   .receipt {
     width: 100%;
     box-shadow: none;
-    padding: 3mm;
+    padding: 2mm;
     margin: 0;
     border-radius: 0;
-    font-family: 'Courier New', monospace;
+    font-family: 'Consolas', monospace;
     font-weight: 600; /* Slightly bolder for thermal printing */
   }
   
@@ -218,7 +216,7 @@ table td:last-child {
   }
   
   .company-logo {
-    max-width: 65%;
+    max-width: 55%;
     height: auto;
   }
   
