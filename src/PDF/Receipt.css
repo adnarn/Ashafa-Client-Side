@@ -1,112 +1,74 @@
-/* styles.css */
-/* styles.css */
-.receipt {
-    width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    margin: 3rem auto;
-    align-items: center;
-    font-size: .7em;
+/* Add these styles to your existing Receipt.css file */
+
+/* Thermal receipt specific styles */
+.thermal-receipt {
+  width: 80mm;
+  font-family: 'Courier New', monospace;
+  margin: 0 auto;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Print button styling */
+.print-controls {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.print-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.print-button:hover {
+  background-color: #45a049;
+}
+
+/* Optimize for thermal printing */
+@media print {
+  body, html {
+    width: 80mm;
+    margin: 0;
+    padding: 0;
   }
   
-  .receipt-header {
-    text-align: center;
-    margin-bottom: 20px;
+  .thermal-receipt {
+    width: 100%;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .receipt-header, .receipt-body, .receipt-footer {
+    width: 100%;
   }
   
   .company-logo {
-    max-width: 100px;
-    height: 3rem;
-    margin-bottom: -8px;
-    margin-top: -8px;
-    border-radius: 10px;
-  }
-  #date{
-      margin-top: -1.3rem;
-      margin-bottom: .5rem;
-      display: flex;
-      justify-content: space-between;
+    max-width: 60%;
+    height: auto;
   }
   
-  .company-name {
-    font-size: 1.5em;
-    margin-top: 10px;
-    font-weight: 600;
-  }
-  .company-address {
-    /* font-size: .8em; */
-    /* margin-top: 10px; */
-  }
-  .phone {
-    /* font-size: .8em; */
-    /* margin-top: 7px; */
-  }
-  
-  .receipt-body table {
+  table {
     width: 100%;
-    border:hidden;
     border-collapse: collapse;
-    margin-left: 13px;
   }
   
-  .receipt-body th, .receipt-body td {
-    border: 1px solid #ccc;
-    /* padding: 5px; */
-    text-align: left;
-    border: hidden;
+  td {
+    padding: 2px 0;
   }
   
-  .print-button{
-    border: none;
-    border-radius: 10px;
-    background: rgb(18, 166, 18);
-    color: white;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    margin: auto;
+  .print-controls {
+    display: none;
+  }
 }
-  
-  .total {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-  }
-  .discount {
-    /* margin-left: -3rem; */
-    text-align: center;
-    margin-bottom: -1rem;
-    margin-top: 1rem;
-  }
-  /* .discount p{
-    margin-bottom: -6px;
-    margin-top: 6px;
-  } */
-  .total-price{
-    margin-left: 1rem;
-  }
-  
-  .receipt-footer {
-    margin-top: 15px;
-    font-size: 0.9em;
-    text-align: center;
-  }
-  
-  .client-info {
-    text-align: right;
-  }
-  .approoved{
-    text-align: center;
-    margin-top: -6px;
-  }
-
-  .star{
-    margin-bottom: -7px;
-  }
-  .starr{
-    margin-top: -12px;
-  }
