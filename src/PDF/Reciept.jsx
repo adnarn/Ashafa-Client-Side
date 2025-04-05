@@ -21,6 +21,7 @@ const Receipt = () => {
   const receiptRef = useRef();
 
   useEffect(() => {
+    // Fetch receipt data
     axios.get(`https://cafe-working-server.vercel.app/getItem/${id}`)
       .then(result => {
         const data = result.data;
@@ -36,12 +37,13 @@ const Receipt = () => {
         setApprooved('APPROOVED');
         setMessage('Transaction Approved');
 
+        // Trigger print
         setTimeout(() => {
-          window.print();
+          window.print(); // Trigger the print dialog
         }, 500); // give DOM time to render
 
         window.onafterprint = () => {
-          navigate('/');
+          navigate('/'); // Redirect to home page after printing
         };
       })
       .catch(err => {
