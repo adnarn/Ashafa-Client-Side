@@ -1,137 +1,91 @@
 /* Receipt.css */
 
-/* Base Styles */
+/* Base Layout for screen */
 .receipt {
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  margin: 3rem auto;
-  align-items: center;
-  font-size: 0.7em;
+  width: 48mm;
+  font-size: 10px;
+  font-family: 'Courier New', monospace;
+  margin: 20px auto;
+  padding: 0;
+  color: #000;
 }
 
 .receipt-header {
   text-align: center;
-  margin-bottom: 20px;
 }
 
 .company-logo {
-  max-width: 100px;
-  height: 3rem;
-  margin-bottom: -8px;
-  margin-top: -8px;
-  border-radius: 10px;
-}
-
-#date {
-  margin-top: -1.3rem;
-  margin-bottom: 0.5rem;
-  display: flex;
-  justify-content: space-between;
+  width: 40mm;
+  height: auto;
+  margin-bottom: 5px;
 }
 
 .company-name {
-  font-size: 1.5em;
-  margin-top: 10px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.company-address,
+.phone {
+  font-size: 10px;
+}
+
+#date {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.receipt-body {
+  width: 100%;
+  margin-top: 5px;
 }
 
 .receipt-body table {
   width: 100%;
-  border-collapse: collapse;
-  margin-left: 13px;
+  font-size: 10px;
 }
 
-.receipt-body th,
 .receipt-body td {
-  border: hidden;
-  text-align: left;
-}
-
-.print-button {
-  border: none;
-  border-radius: 10px;
-  background: rgb(18, 166, 18);
-  color: white;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  margin: auto;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 2px 0;
 }
 
 .total {
-  text-align: center;
   font-weight: bold;
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .discount {
   text-align: center;
-  margin-bottom: -1rem;
-  margin-top: 1rem;
+  margin-top: 5px;
 }
 
 .total-price {
-  margin-left: 1rem;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 8px;
 }
 
 .receipt-footer {
-  margin-top: 15px;
-  font-size: 0.9em;
   text-align: center;
+  margin-top: 8px;
+  font-size: 10px;
 }
 
-.client-info {
-  text-align: right;
+.print-button {
+  display: block;
+  margin: 20px auto;
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #0a0;
+  color: white;
+  border: none;
+  border-radius: 4px;
 }
 
-.approoved {
-  text-align: center;
-  margin-top: -6px;
-}
-
-.star {
-  margin-bottom: -7px;
-}
-
-.starr {
-  margin-top: -12px;
-}
-
-/* Print Styles */
-/* @media print {
-  body {
-    margin: 0;
-    padding: 0;
-  }
-
-  .receipt {
-    width: 48mm;
-    max-width: 48mm;
-    font-size: 10px;
-    padding: 5px;
-    margin: 0;
-    box-sizing: border-box;
-  }
-
-  .print-button {
-    display: none;
-  }
-  
-
-  @page {
-    size: 48mm auto;
-    margin: 0;
-  }
-} */
-
-
+/* Hide everything except .receipt on print */
 @media print {
   body * {
     visibility: hidden;
@@ -143,8 +97,20 @@
 
   .receipt {
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
+    width: 48mm;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .print-button {
+    display: none;
+  }
+
+  @page {
+    size: 48mm auto;
+    margin: 0;
   }
 }
-
