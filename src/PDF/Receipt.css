@@ -1,88 +1,110 @@
 /* Receipt.css */
+
+/* Base Styles */
 .receipt {
-  width: 48mm;
-  max-width: 48mm;
-  font-family: 'Arial', sans-serif;
-  font-size: 10px;
-  padding: 5px;
-  margin: 0 auto;
-  box-sizing: border-box;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  margin: 3rem auto;
+  align-items: center;
+  font-size: 0.7em;
 }
 
 .receipt-header {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .company-logo {
-  width: 40mm;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  border-radius: 5px;
+  max-width: 100px;
+  height: 3rem;
+  margin-bottom: -8px;
+  margin-top: -8px;
+  border-radius: 10px;
 }
 
 #date {
+  margin-top: -1.3rem;
+  margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
-  font-size: 9px;
-  margin-bottom: 5px;
 }
 
 .company-name {
-  font-weight: bold;
-  font-size: 12px;
-  margin: 5px 0;
+  font-size: 1.5em;
+  margin-top: 10px;
+  font-weight: 600;
 }
 
 .receipt-body table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 5px;
+  margin-left: 13px;
 }
 
+.receipt-body th,
 .receipt-body td {
-  padding: 2px 0;
-  vertical-align: top;
-  font-size: 9px;
+  border: hidden;
+  text-align: left;
+}
+
+.print-button {
+  border: none;
+  border-radius: 10px;
+  background: rgb(18, 166, 18);
+  color: white;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  padding: 10px 20px;
+  font-size: 16px;
 }
 
 .total {
-  margin-top: 10px;
   text-align: center;
   font-weight: bold;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .discount {
-  margin-top: 5px;
   text-align: center;
-  font-size: 9px;
+  margin-bottom: -1rem;
+  margin-top: 1rem;
+}
+
+.total-price {
+  margin-left: 1rem;
 }
 
 .receipt-footer {
+  margin-top: 15px;
+  font-size: 0.9em;
   text-align: center;
-  font-size: 9px;
-  margin-top: 10px;
+}
+
+.client-info {
+  text-align: right;
 }
 
 .approoved {
-  font-weight: bold;
-  font-size: 10px;
-  margin-top: 5px;
-}
-
-.star,
-.starr {
-  font-size: 10px;
   text-align: center;
+  margin-top: -6px;
 }
 
-/* Hide button on print */
-.print-button {
-  display: none;
+.star {
+  margin-bottom: -7px;
 }
 
-/* Print-specific rules */
+.starr {
+  margin-top: -12px;
+}
+
+/* Print Styles */
 @media print {
   body {
     margin: 0;
@@ -90,12 +112,16 @@
   }
 
   .receipt {
-    width: 48mm !important;
-    max-width: 48mm !important;
+    width: 48mm;
+    max-width: 48mm;
     font-size: 10px;
     padding: 5px;
     margin: 0;
     box-sizing: border-box;
+  }
+
+  .print-button {
+    display: none;
   }
 
   @page {
