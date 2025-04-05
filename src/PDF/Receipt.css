@@ -1,93 +1,131 @@
+/* Receipt.css */
+
+/* Base Styles */
 .receipt {
-  width: 48mm;
-  padding: 5px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 20px;
   font-family: Arial, sans-serif;
-  font-size: 10px;
-  margin: auto;
-  box-sizing: border-box;
+  margin: 3rem auto;
+  align-items: center;
+  font-size: 0.7em;
 }
 
 .receipt-header {
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 .company-logo {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  border-radius: 5px;
-}
-
-.company-name {
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.company-address,
-.phone {
-  font-size: 9px;
+  max-width: 100px;
+  height: 3rem;
+  margin-bottom: -8px;
+  margin-top: -8px;
+  border-radius: 10px;
 }
 
 #date {
+  margin-top: -1.3rem;
+  margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
-  margin: 5px 0;
-  font-size: 9px;
+}
+
+.company-name {
+  font-size: 1.5em;
+  margin-top: 10px;
+  font-weight: 600;
 }
 
 .receipt-body table {
   width: 100%;
-  font-size: 9px;
   border-collapse: collapse;
+  margin-left: 13px;
 }
 
+.receipt-body th,
 .receipt-body td {
-  padding: 2px 0;
-  vertical-align: top;
-}
-
-.total {
-  margin-top: 5px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.discount {
-  text-align: center;
-  margin: 5px 0;
-}
-
-.total-price {
-  font-size: 10px;
-}
-
-.star,
-.starr {
-  font-size: 12px;
-  text-align: center;
-  line-height: 1;
-}
-
-.receipt-footer {
-  margin-top: 8px;
-  font-size: 8px;
-  text-align: center;
-}
-
-.approoved {
-  font-size: 10px;
-  margin-top: 5px;
+  border: hidden;
+  text-align: left;
 }
 
 .print-button {
   border: none;
-  border-radius: 5px;
-  background: green;
+  border-radius: 10px;
+  background: rgb(18, 166, 18);
   color: white;
-  font-size: 12px;
-  padding: 5px 10px;
-  margin: 10px auto;
-  display: block;
-  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.total {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.discount {
+  text-align: center;
+  margin-bottom: -1rem;
+  margin-top: 1rem;
+}
+
+.total-price {
+  margin-left: 1rem;
+}
+
+.receipt-footer {
+  margin-top: 15px;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.client-info {
+  text-align: right;
+}
+
+.approoved {
+  text-align: center;
+  margin-top: -6px;
+}
+
+.star {
+  margin-bottom: -7px;
+}
+
+.starr {
+  margin-top: -12px;
+}
+
+/* Print Styles */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .receipt {
+    width: 48mm;
+    max-width: 48mm;
+    font-size: 10px;
+    padding: 5px;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .print-button {
+    display: none;
+  }
+
+  @page {
+    size: 48mm auto;
+    margin: 0;
+  }
 }
