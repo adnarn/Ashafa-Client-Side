@@ -2,18 +2,19 @@
 
 /* Base receipt container */
 .receipt {
-  width: 70mm; /* Slightly smaller width */
-  font-family: 'Courier New', monospace;
+  width: 70mm;
+  font-family: 'OCR-A', 'Share Tech Mono', 'Courier New', monospace;
   margin: 0 auto;
   background-color: white;
   color: black;
   padding: 8px 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  font-size: 10px; /* Smaller base font size */
-  line-height: 1.3; /* Tighter line height */
-  font-weight: 700; /* Bolder base font weight */
+  font-size: 10px;
+  line-height: 1.3;
+  font-weight: 700;
 }
+
 
 /* Receipt header styling */
 .receipt-header {
