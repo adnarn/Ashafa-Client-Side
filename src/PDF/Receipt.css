@@ -201,6 +201,7 @@ table td:last-child {
     background-color: white;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    font-family: 'Roboto Mono', monospace;
   }
   
   .receipt {
@@ -209,7 +210,6 @@ table td:last-child {
     padding: 2mm;
     margin: 0;
     border-radius: 0;
-    font-family: 'Roboto Mono', monospace;
     font-weight: 700;
     font-size: 10px;
   }
