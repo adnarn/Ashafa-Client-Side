@@ -85,7 +85,7 @@ const handlePrint = useReactToPrint({
         padding: 0;
       }
       * {
-        font-family: 'Courier New', monospace !important;
+        font-family: 'Roboto Mono', monospace !important;        
         font-weight: 700 !important;
         line-height: 1.3 !important;
         font-size: 10px !important;
