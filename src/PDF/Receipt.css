@@ -3,7 +3,7 @@
 /* Base receipt container */
 .receipt {
   width: 70mm;
-  font-family: 'OCR-A', 'Share Tech Mono', 'Courier New', monospace;
+  font-family: 'Roboto Mono', monospace;
   margin: 0 auto;
   background-color: white;
   color: black;
